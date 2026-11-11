@@ -1,0 +1,149 @@
+<UserControl
+    x:Class="MSACL.UI.UWP.Controls.WhatsNewControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MSACL.UI.UWP.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:triggers="using:MSACL.UI.UWP.CustomTriggers"
+    x:ConnectionId="1">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///MSACL.UI.UWP/Styles/CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style
+                x:Key="AppNameTextBlockStyle"
+                BasedOn="{StaticResource BodyTextBlockStyle}"
+                TargetType="TextBlock">
+                <Setter Property="FontSize" Value="22" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border
+        x:Name="Root"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        x:ConnectionId="2">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:DiagonalSizeTrigger MinDiagonalSizeInInches="6" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Root.VerticalAlignment" Value="Center" />
+                        <Setter Target="Root.HorizontalAlignment" Value="Center" />
+                        <Setter Target="DescriptionScroll.MaxWidth" Value="316" />
+                        <Setter Target="DescriptionScroll.MaxHeight" Value="300" />
+                        <Setter Target="TitleImage.MaxWidth" Value="340" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:DiagonalSizeTrigger MinDiagonalSizeInInches="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Root.VerticalAlignment" Value="Stretch" />
+                        <Setter Target="Root.HorizontalAlignment" Value="Stretch" />
+                        <Setter Target="TitleBlock.Visibility" Value="Collapsed" />
+                        <Setter Target="MobileTitleRow.Height" Value="48" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Border x:ConnectionId="3" BorderThickness="1,1,1,1">
+            <Grid Margin="12,0,12,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        x:Name="MobileTitleRow"
+                        Height="0"
+                        x:ConnectionId="4" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    x:ConnectionId="5"
+                    FontSize="18"
+                    Typography.Capitals="AllSmallCaps" />
+                <Image
+                    x:Name="TitleImage"
+                    Grid.Row="1"
+                    Margin="-12,0,-12,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"
+                    x:ConnectionId="6"
+                    Stretch="Fill" />
+                <TextBlock
+                    x:Name="TitleBlock"
+                    Grid.Row="1"
+                    Margin="0,8,0,0"
+                    x:ConnectionId="7"
+                    FontSize="15"
+                    Foreground="#FFFFFFFF" />
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,12,0,0"
+                    x:ConnectionId="8"
+                    Style="{StaticResource AppNameTextBlockStyle}" />
+                <HyperlinkButton
+                    Grid.Row="3"
+                    Margin="0,2,0,0"
+                    Padding="0,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    x:ConnectionId="9"
+                    FontSize="14"
+                    FontWeight="Light"
+                    Style="{StaticResource HyperlinkButtonStyle}" />
+                <HyperlinkButton
+                    Grid.Row="3"
+                    Margin="0,2,0,0"
+                    Padding="0,0,0,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    x:ConnectionId="10">
+                    <Image Height="20" Source="ms-appx:///MSACL.UI.UWP/Assets/Tweet.png" />
+                </HyperlinkButton>
+                <TextBlock
+                    Grid.Row="4"
+                    Margin="0,16,0,0"
+                    x:ConnectionId="11"
+                    FontSize="15" />
+                <TextBlock
+                    Grid.Row="4"
+                    Margin="0,16,0,0"
+                    HorizontalAlignment="Right"
+                    x:ConnectionId="12"
+                    FontSize="15" />
+                <ScrollViewer
+                    x:Name="DescriptionScroll"
+                    Grid.Row="5"
+                    Margin="0,16,0,0"
+                    HorizontalContentAlignment="Left"
+                    x:ConnectionId="13"
+                    IsTabStop="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.HorizontalScrollMode="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                    ScrollViewer.VerticalScrollMode="Auto">
+                    <TextBlock
+                        HorizontalAlignment="Left"
+                        x:ConnectionId="14"
+                        FontSize="12"
+                        TextWrapping="WrapWholeWords" />
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

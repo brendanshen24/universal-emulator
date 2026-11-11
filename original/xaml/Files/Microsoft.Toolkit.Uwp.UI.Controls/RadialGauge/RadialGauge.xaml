@@ -1,0 +1,62 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    <Style TargetType="RadialGauge">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadialGauge">
+                    <Viewbox>
+                        <Grid
+                            x:Name="PART_Container"
+                            Width="200"
+                            Height="200">
+                            <Path x:Name="PART_Scale">
+                                <Path.Stroke>
+                                    <TemplateBinding Property="ScaleBrush" />
+                                </Path.Stroke>
+                                <Path.StrokeThickness>
+                                    <TemplateBinding Property="ScaleWidth" />
+                                </Path.StrokeThickness>
+                            </Path>
+                            <Path x:Name="PART_Trail">
+                                <Path.Stroke>
+                                    <TemplateBinding Property="TrailBrush" />
+                                </Path.Stroke>
+                                <Path.StrokeThickness>
+                                    <TemplateBinding Property="ScaleWidth" />
+                                </Path.StrokeThickness>
+                            </Path>
+                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                                <TextBlock
+                                    x:Name="PART_ValueText"
+                                    Margin="0,0,0,2"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    TextAlignment="Center">
+                                    <TextBlock.Foreground>
+                                        <TemplateBinding Property="ValueBrush" />
+                                    </TextBlock.Foreground>
+                                    <TextBlock.Text>
+                                        <TemplateBinding Property="Value" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                                <TextBlock
+                                    Margin="0,0,0,0"
+                                    FontSize="16"
+                                    TextAlignment="Center">
+                                    <TextBlock.Foreground>
+                                        <TemplateBinding Property="UnitBrush" />
+                                    </TextBlock.Foreground>
+                                    <TextBlock.Text>
+                                        <TemplateBinding Property="Unit" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Viewbox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

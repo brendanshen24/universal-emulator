@@ -1,0 +1,194 @@
+\Files\App.xbf		<embedded 770 bytes>
+\Files\Assets\Banners\MetroCommanderPro292x60.png		Assets\\Banners\\MetroCommanderPro292x60.png
+\Files\Assets\Banners\MetroCommanderPro728x90.png		Assets\\Banners\\MetroCommanderPro728x90.png
+\Files\Assets\HeaderLogo.png		Assets\\HeaderLogo.png
+\Files\Assets\Logo.png	Scale=200	Assets\\Logo.scale-200.png
+\Files\Assets\PopularSearchesThumbs\BattleCity.png		Assets\\PopularSearchesThumbs\\BattleCity.png
+\Files\Assets\PopularSearchesThumbs\Battletoads.png		Assets\\PopularSearchesThumbs\\Battletoads.png
+\Files\Assets\PopularSearchesThumbs\ChipnDale.png		Assets\\PopularSearchesThumbs\\ChipnDale.png
+\Files\Assets\PopularSearchesThumbs\Contra.png		Assets\\PopularSearchesThumbs\\Contra.png
+\Files\Assets\PopularSearchesThumbs\Mario.png		Assets\\PopularSearchesThumbs\\Mario.png
+\Files\Assets\Roms\Airwolf 92 public domain b1.smc		Assets\\Roms\\Airwolf 92 public domain b1.smc
+\Files\Assets\Roms\Airwolf 92 public domain b1_thumb.png		Assets\\Roms\\Airwolf 92 public domain b1_thumb.png
+\Files\Assets\Roms\Alter_Ego.nes		Assets\\Roms\\Alter_Ego.nes
+\Files\Assets\Roms\Alter_Ego_thumb.png		Assets\\Roms\\Alter_Ego_thumb.png
+\Files\Assets\Roms\Astrohawk May 2003 Version public domain.smc		Assets\\Roms\\Astrohawk May 2003 Version public domain.smc
+\Files\Assets\Roms\Astrohawk May 2003 Version public domain_thumb.png		Assets\\Roms\\Astrohawk May 2003 Version public domain_thumb.png
+\Files\Assets\Roms\Bio Worm public domain.smc		Assets\\Roms\\Bio Worm public domain.smc
+\Files\Assets\Roms\Bio Worm public domain_thumb.png		Assets\\Roms\\Bio Worm public domain_thumb.png
+\Files\Assets\Roms\Chase.nes		Assets\\Roms\\Chase.nes
+\Files\Assets\Roms\Chase_thumb.png		Assets\\Roms\\Chase_thumb.png
+\Files\Assets\Roms\Diver, The public domain.smc		Assets\\Roms\\Diver, The public domain.smc
+\Files\Assets\Roms\Diver, The public domain_thumb.png		Assets\\Roms\\Diver, The public domain_thumb.png
+\Files\Assets\Roms\Dynamate public domain.smc		Assets\\Roms\\Dynamate public domain.smc
+\Files\Assets\Roms\Dynamate public domain_thumb.png		Assets\\Roms\\Dynamate public domain_thumb.png
+\Files\Assets\Roms\Fuzzy Shooting public domain.smc		Assets\\Roms\\Fuzzy Shooting public domain.smc
+\Files\Assets\Roms\Fuzzy Shooting public domain_thumb.png		Assets\\Roms\\Fuzzy Shooting public domain_thumb.png
+\Files\Assets\Roms\Lan_Master.nes		Assets\\Roms\\Lan_Master.nes
+\Files\Assets\Roms\Lan_Master_thumb.png		Assets\\Roms\\Lan_Master_thumb.png
+\Files\Assets\Roms\library.json		Assets\\Roms\\library.json
+\Files\Assets\SmallLogo.png	TargetSize=48	Assets\\SmallLogo.targetsize-48.png
+\Files\Assets\SmallLogo.png	TargetSize=32	Assets\\SmallLogo.targetsize-32.png
+\Files\Assets\SmallLogo.png	TargetSize=256	Assets\\SmallLogo.targetsize-256.png
+\Files\Assets\SmallLogo.png	TargetSize=16	Assets\\SmallLogo.targetsize-16.png
+\Files\Assets\SmallLogo.png	Scale=200	Assets\\SmallLogo.scale-200.png
+\Files\Assets\smallTile-sdk.png		Assets\\smallTile-sdk.png
+\Files\Assets\SplashScreen.png	Scale=200	Assets\\SplashScreen.scale-200.png
+\Files\Assets\StoreLogo.png		Assets\\StoreLogo.png
+\Files\Assets\TiledBackground.png		Assets\\TiledBackground.png
+\Files\Assets\WideLogo.png	Scale=200	Assets\\WideLogo.scale-200.png
+\Files\blank.html		blank.html
+\Files\ga.js		ga.js
+\Files\GamePad\GamePad.xr.xml		GamePad\\GamePad.xr.xml
+\Files\GamePad\GamePadControl.xbf		GamePad\\GamePadControl.xbf
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\AdaptiveGridView\AdaptiveGridView.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\AdaptiveGridView\\AdaptiveGridView.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\AdaptiveGridView\AdaptiveGridView.xbf		<embedded 1248 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\HamburgerMenu\HamburgerMenu.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\HamburgerMenu\\HamburgerMenu.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\HamburgerMenu\HamburgerMenu.xbf		<embedded 2168 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\HeaderedTextBlock\HeaderedTextBlock.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\HeaderedTextBlock\\HeaderedTextBlock.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\HeaderedTextBlock\HeaderedTextBlock.xbf		<embedded 2082 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\ImageEx\ImageEx.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\ImageEx\\ImageEx.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\ImageEx\ImageEx.xbf		<embedded 1980 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\Microsoft.Toolkit.Uwp.UI.Controls.xr.xml		Microsoft.Toolkit.Uwp.UI.Controls\\Microsoft.Toolkit.Uwp.UI.Controls.xr.xml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\PullToRefreshListView\PullToRefreshListView.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\PullToRefreshListView\\PullToRefreshListView.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\PullToRefreshListView\PullToRefreshListView.xbf		<embedded 1634 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\RadialGauge\RadialGauge.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\RadialGauge\\RadialGauge.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\RadialGauge\RadialGauge.xbf		<embedded 1315 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\RangeSelector\RangeSelector.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\RangeSelector\\RangeSelector.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\RangeSelector\RangeSelector.xbf		<embedded 2748 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\RotatorTile\RotatorTile.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\RotatorTile\\RotatorTile.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\RotatorTile\RotatorTile.xbf		<embedded 1017 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\SlidableListItem\SlidableListItem.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\SlidableListItem\\SlidableListItem.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\SlidableListItem\SlidableListItem.xbf		<embedded 1566 bytes>
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\Themes\Generic.xaml		Microsoft.Toolkit.Uwp.UI.Controls\\Themes\\Generic.xaml
+\Files\Microsoft.Toolkit.Uwp.UI.Controls\Themes\Generic.xbf		<embedded 1949 bytes>
+\Files\MSACL.UI.Helper\Assets\File.png		MSACL.UI.Helper\\Assets\\File.png
+\Files\MSACL.UI.UWP\AppBarDialog.xbf		<embedded 6516 bytes>
+\Files\MSACL.UI.UWP\Assets\Tweet.png		MSACL.UI.UWP\\Assets\\Tweet.png
+\Files\MSACL.UI.UWP\Controls\ConfirmTextBox.xbf		<embedded 1182 bytes>
+\Files\MSACL.UI.UWP\Controls\LanguageSelectionControl.xbf		<embedded 977 bytes>
+\Files\MSACL.UI.UWP\Controls\PathUserControl.xbf		<embedded 1539 bytes>
+\Files\MSACL.UI.UWP\Controls\SearchSelectorControl.xbf		<embedded 957 bytes>
+\Files\MSACL.UI.UWP\Controls\SimpleArcProgress.xbf		<embedded 1378 bytes>
+\Files\MSACL.UI.UWP\Controls\WhatsNewControl.xbf		<embedded 3419 bytes>
+\Files\MSACL.UI.UWP\MSACL.UI.UWP.xr.xml		MSACL.UI.UWP\\MSACL.UI.UWP.xr.xml
+\Files\MSACL.UI.UWP\Properties\MSACL.UI.UWP.rd.xml		MSACL.UI.UWP\\Properties\\MSACL.UI.UWP.rd.xml
+\Files\MSACL.UI.UWP\Styles\CustomStyles.xbf		<embedded 2329 bytes>
+\Files\MSACL.UI.UWP\Themes\Generic.xbf		<embedded 1765 bytes>
+\Files\Nesbox.xr.xml		Nesbox.xr.xml
+\Files\Properties\Default.rd.xml		Properties\\Default.rd.xml
+\Files\View\EmulatorPage.xbf		<embedded 5603 bytes>
+\Files\View\RomsPage.xbf		<embedded 5357 bytes>
+\Files\View\SavesPage.xbf		<embedded 5259 bytes>
+\Files\View\SettingFlyouts\AboutFlyout.xbf		<embedded 963 bytes>
+\Files\View\SettingFlyouts\BoxSettingsFlyout.xbf		<embedded 7380 bytes>
+\Files\View\StartPage.xbf		<embedded 11709 bytes>
+\Files\WinMetadata\Microsoft.Advertising.winmd		WinMetadata\\Microsoft.Advertising.winmd
+\Files\WinMetadata\Windows.winmd		WinMetadata\\Windows.winmd
+\Files\WinRTXamlToolkit\Controls\AlternativeFrame\AlternativeFrame.xbf		WinRTXamlToolkit\\Controls\\AlternativeFrame\\AlternativeFrame.xbf
+\Files\WinRTXamlToolkit\Controls\AnimatingContainer\AnimatingContainer.xbf		WinRTXamlToolkit\\Controls\\AnimatingContainer\\AnimatingContainer.xbf
+\Files\WinRTXamlToolkit\Controls\AutoCompleteTextBox\AutoCompleteTextBox.xbf		WinRTXamlToolkit\\Controls\\AutoCompleteTextBox\\AutoCompleteTextBox.xbf
+\Files\WinRTXamlToolkit\Controls\CameraCaptureControl\CameraCaptureControl.xbf		WinRTXamlToolkit\\Controls\\CameraCaptureControl\\CameraCaptureControl.xbf
+\Files\WinRTXamlToolkit\Controls\CascadingImageControl\CascadingImageControl.xbf		WinRTXamlToolkit\\Controls\\CascadingImageControl\\CascadingImageControl.xbf
+\Files\WinRTXamlToolkit\Controls\CascadingTextBlock\CascadingTextBlock.xbf		WinRTXamlToolkit\\Controls\\CascadingTextBlock\\CascadingTextBlock.xbf
+\Files\WinRTXamlToolkit\Controls\ColorPicker\ColorPicker.xbf		WinRTXamlToolkit\\Controls\\ColorPicker\\ColorPicker.xbf
+\Files\WinRTXamlToolkit\Controls\CountdownControl\CountdownControl.xbf		WinRTXamlToolkit\\Controls\\CountdownControl\\CountdownControl.xbf
+\Files\WinRTXamlToolkit\Controls\CustomAppBar\CustomAppBar.xbf		WinRTXamlToolkit\\Controls\\CustomAppBar\\CustomAppBar.xbf
+\Files\WinRTXamlToolkit\Controls\CustomGridSplitter\CustomGridSplitter.xbf		WinRTXamlToolkit\\Controls\\CustomGridSplitter\\CustomGridSplitter.xbf
+\Files\WinRTXamlToolkit\Controls\DelayedLoadControl\DelayedLoadControl.xbf		WinRTXamlToolkit\\Controls\\DelayedLoadControl\\DelayedLoadControl.xbf
+\Files\WinRTXamlToolkit\Controls\FocusVisualizer\FocusVisualizer.xbf		WinRTXamlToolkit\\Controls\\FocusVisualizer\\FocusVisualizer.xbf
+\Files\WinRTXamlToolkit\Controls\FxContentControl\FxContentControl.xbf		WinRTXamlToolkit\\Controls\\FxContentControl\\FxContentControl.xbf
+\Files\WinRTXamlToolkit\Controls\ImageButton\ImageButton.xbf		WinRTXamlToolkit\\Controls\\ImageButton\\ImageButton.xbf
+\Files\WinRTXamlToolkit\Controls\ImageToggleButton\ImageToggleButton.xbf		WinRTXamlToolkit\\Controls\\ImageToggleButton\\ImageToggleButton.xbf
+\Files\WinRTXamlToolkit\Controls\InputDialog\InputDialog.xbf		WinRTXamlToolkit\\Controls\\InputDialog\\InputDialog.xbf
+\Files\WinRTXamlToolkit\Controls\ListItemButton\ListItemButton.xbf		WinRTXamlToolkit\\Controls\\ListItemButton\\ListItemButton.xbf
+\Files\WinRTXamlToolkit\Controls\NumericUpDown\NumericUpDown.xbf		WinRTXamlToolkit\\Controls\\NumericUpDown\\NumericUpDown.xbf
+\Files\WinRTXamlToolkit\Controls\ToolStrip\ToolStrip.xbf		WinRTXamlToolkit\\Controls\\ToolStrip\\ToolStrip.xbf
+\Files\WinRTXamlToolkit\Controls\ToolWindow\ToolWindow.xbf		WinRTXamlToolkit\\Controls\\ToolWindow\\ToolWindow.xbf
+\Files\WinRTXamlToolkit\Controls\TreeView\TreeView.xbf		WinRTXamlToolkit\\Controls\\TreeView\\TreeView.xbf
+\Files\WinRTXamlToolkit\Controls\TreeView\TreeViewItem.xbf		WinRTXamlToolkit\\Controls\\TreeView\\TreeViewItem.xbf
+\Files\WinRTXamlToolkit\Controls\TreeView\TreeViewMouse.xbf		WinRTXamlToolkit\\Controls\\TreeView\\TreeViewMouse.xbf
+\Files\WinRTXamlToolkit\Controls\TreeView\TreeViewTouch.xbf		WinRTXamlToolkit\\Controls\\TreeView\\TreeViewTouch.xbf
+\Files\WinRTXamlToolkit\Controls\WatermarkPasswordBox\WatermarkPasswordBox.xbf		WinRTXamlToolkit\\Controls\\WatermarkPasswordBox\\WatermarkPasswordBox.xbf
+\Files\WinRTXamlToolkit\Controls\WatermarkTextBox\WatermarkTextBox.xbf		WinRTXamlToolkit\\Controls\\WatermarkTextBox\\WatermarkTextBox.xbf
+\Files\WinRTXamlToolkit\Controls\WebBrowser\WebBrowser.xbf		WinRTXamlToolkit\\Controls\\WebBrowser\\WebBrowser.xbf
+\Files\WinRTXamlToolkit\Themes\Generic.xbf		WinRTXamlToolkit\\Themes\\Generic.xbf
+\Files\WinRTXamlToolkit\WinRTXamlToolkit.xr.xml		WinRTXamlToolkit\\WinRTXamlToolkit.xr.xml
+\GamePad\Resources\GamepadTipText\Text	Language=EN	Move the buttons to setup screen gamepad
+\Microsoft.Xaml.Interactions\Strings\CallMethodActionValidMethodNotFoundExceptionMessage	Language=EN-US	Cannot find method named {0} on object of type {1} that matches the expected signature.
+\Microsoft.Xaml.Interactions\Strings\CannotAttachBehaviorMultipleTimesExceptionMessage	Language=EN-US	An instance of a behavior cannot be attached to more than one object at a time.
+\Microsoft.Xaml.Interactions\Strings\CannotFindEventNameExceptionMessage	Language=EN-US	Cannot find an event named {0} on type {1}.
+\Microsoft.Xaml.Interactions\Strings\ChangePropertyActionCannotFindPropertyNameExceptionMessage	Language=EN-US	Cannot find a property named {0} on type {1}.
+\Microsoft.Xaml.Interactions\Strings\ChangePropertyActionCannotSetValueExceptionMessage	Language=EN-US	Cannot assign value of type {0} to property {1} of type {2}. The {1} property can be assigned only values of type {2}.
+\Microsoft.Xaml.Interactions\Strings\ChangePropertyActionPropertyIsReadOnlyExceptionMessage	Language=EN-US	Property {0} defined by type {1} does not expose a set method and therefore cannot be modified.
+\Microsoft.Xaml.Interactions\Strings\EventNotSupportedExceptionMessage	Language=EN-US	Event {0} is not supported. Consider implementing a custom IBehavior to respond to this event.
+\Microsoft.Xaml.Interactions\Strings\GoToStateActionTargetHasNoStateGroups	Language=EN-US	Target {0} does not define any VisualStateGroups.
+\Microsoft.Xaml.Interactions\Strings\InvalidLeftOperand	Language=EN-US	Binding property of type {0} cannot be used with operator {1}.
+\Microsoft.Xaml.Interactions\Strings\InvalidOperands	Language=EN-US	Binding property of type {0} and Value property of type {1} cannot be used with operator {2}.
+\Microsoft.Xaml.Interactions\Strings\InvalidRightOperand	Language=EN-US	Value property of type {0} cannot be used with operator {1}.
+\Microsoft.Xaml.Interactivity\Strings\CannotAttachBehaviorMultipleTimesExceptionMessage	Language=EN-US	An instance of a behavior cannot be attached to more than one object at a time.
+\Microsoft.Xaml.Interactivity\Strings\DuplicateBehaviorInCollectionExceptionMessage	Language=EN-US	Cannot add an instance of a behavior to a BehaviorCollection more than once.
+\Microsoft.Xaml.Interactivity\Strings\InvalidAssociatedObjectExceptionMessage	Language=EN-US	AssociatedObject is of type {0} but should be of type {1}.
+\Microsoft.Xaml.Interactivity\Strings\NonActionAddedToActionCollectionExceptionMessage	Language=EN-US	Only IAction types are supported in an ActionCollection.
+\Microsoft.Xaml.Interactivity\Strings\NonBehaviorAddedToBehaviorCollectionExceptionMessage	Language=EN-US	Only IBehavior types are supported in a BehaviorCollection.
+\MSACL.UI.Helper\Resources\ArchiveCorruptedMessage	Language=EN	Archive is corrupted.
+\MSACL.UI.Helper\Resources\BAbbr	Language=EN	B
+\MSACL.UI.Helper\Resources\CancelButton	Language=EN	Cancel
+\MSACL.UI.Helper\Resources\EmailBodyProblemReport	Language=EN	[Please describe your problem here]
+\MSACL.UI.Helper\Resources\EmailTitleProblemReport	Language=EN	Problem report
+\MSACL.UI.Helper\Resources\Error	Language=EN	Error
+\MSACL.UI.Helper\Resources\GBAbbr	Language=EN	GB
+\MSACL.UI.Helper\Resources\InformationTitle	Language=EN	Information
+\MSACL.UI.Helper\Resources\KBAbbr	Language=EN	KB
+\MSACL.UI.Helper\Resources\MBAbbr	Language=EN	MB
+\MSACL.UI.Helper\Resources\MoreAppsMessage	Language=EN	Would you like to try our other applications?
+\MSACL.UI.Helper\Resources\RateAppMessage	Language=EN	Do you like this application?
+\MSACL.UI.Helper\Resources\RateButton	Language=EN	Rate
+\MSACL.UI.Helper\Resources\ReportProblemButton	Language=EN	Report a problem
+\MSACL.UI.Helper\Resources\SystemDefaultLanguage	Language=EN	(System default)
+\MSACL.UI.Helper\Resources\TBAbbr	Language=EN	TB
+\MSACL.UI.Helper\Resources\YesButton	Language=EN	Yes
+\Resources\About\Title	Language=EN	About
+\Resources\AddButton\Label	Language=EN	Add
+\Resources\BackButton\Label	Language=EN	Exit
+\Resources\BlurToggleButton\Label	Language=EN	Blur
+\Resources\CancelButton\Label	Language=EN	Cancel
+\Resources\CloseButton\Content	Language=EN	Close
+\Resources\DeleteButton\Label	Language=EN	Delete
+\Resources\DownloadingTitle	Language=EN	Downloading game...
+\Resources\DownTextBlock\Text	Language=EN	Down
+\Resources\ErrorTitle	Language=EN	Error
+\Resources\FailedToLoadRomError	Language=EN	Failed to load the ROM
+\Resources\FullScreenToggle\Label	Language=EN	Full Screen
+\Resources\GamepadSettings\Text	Language=EN	Xbox Controller Settings
+\Resources\KeyboardSettings\Text	Language=EN	Keyboard Settings
+\Resources\LeftTextBlock\Text	Language=EN	Left
+\Resources\LoadButton\Label	Language=EN	Load(F3)
+\Resources\LoadButtonPhone\Label	Language=EN	Load
+\Resources\MyGamesButton\Label	Language=EN	My Games
+\Resources\MyGamesTextBlock\Text	Language=EN	My Games
+\Resources\MySavesButton\Label	Language=EN	My Saves
+\Resources\MySavesTextBlock\Text	Language=EN	My Saves
+\Resources\MySavesTextBlockHeader\Header	Language=EN	My Saves
+\Resources\OpenButton\Label	Language=EN	Open
+\Resources\PolicyTextBlock\Text	Language=EN	The author is not responsible for any illegal use of this software. Furthermore, there is no warranty for this software and the author is not liable for any damages.
+\Resources\PopularSearches\Header	Language=EN	Popular Searches
+\Resources\PrivacyPolicy\Title	Language=EN	Privacy policy
+\Resources\PromotionCommand	Language=EN	Our applications
+\Resources\RecentlyPlayed\Header	Language=EN	Recently Played
+\Resources\ResetToDefaults\Content	Language=EN	Reset to defaults
+\Resources\RightTextBlock\Text	Language=EN	Right
+\Resources\SaveButton\Label	Language=EN	Save(F2)
+\Resources\SaveButtonPhone\Label	Language=EN	Save
+\Resources\SearchButtonText	Language=EN	Search
+\Resources\SearchInternet\PlaceholderText	Language=EN	Search games on the Internet
+\Resources\SearchMessageText	Language=EN	This game is not in your library. Please click 'Search' to look for this game on the Internet.
+\Resources\SearchMyGames\PlaceholderText	Language=EN	Search in My Games
+\Resources\SearchMySaves\PlaceholderText	Language=EN	Search in My Saves
+\Resources\SelectButton\Label	Language=EN	Select
+\Resources\Settings\Title	Language=EN	Settings
+\Resources\SettingsButton\Label	Language=EN	Settings
+\Resources\SetupGamePadToggle\Label	Language=EN	Setup Screen Gamepad
+\Resources\ShowGamePadToggle\Label	Language=EN	Show Screen Gamepad
+\Resources\SoundToggleButton\Label	Language=EN	Sound
+\Resources\UpTextBlock\Text	Language=EN	Up

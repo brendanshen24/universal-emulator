@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="About.Title" xml:space="preserve"><value>About</value></data>
+  <data name="AddButton.Label" xml:space="preserve"><value>Add</value></data>
+  <data name="BackButton.Label" xml:space="preserve"><value>Exit</value></data>
+  <data name="BlurToggleButton.Label" xml:space="preserve"><value>Blur</value></data>
+  <data name="CancelButton.Label" xml:space="preserve"><value>Cancel</value></data>
+  <data name="CloseButton.Content" xml:space="preserve"><value>Close</value></data>
+  <data name="DeleteButton.Label" xml:space="preserve"><value>Delete</value></data>
+  <data name="DownTextBlock.Text" xml:space="preserve"><value>Down</value></data>
+  <data name="DownloadingTitle" xml:space="preserve"><value>Downloading game...</value></data>
+  <data name="ErrorTitle" xml:space="preserve"><value>Error</value></data>
+  <data name="FailedToLoadRomError" xml:space="preserve"><value>Failed to load the ROM</value></data>
+  <data name="FullScreenToggle.Label" xml:space="preserve"><value>Full Screen</value></data>
+  <data name="GamepadSettings.Text" xml:space="preserve"><value>Xbox Controller Settings</value></data>
+  <data name="KeyboardSettings.Text" xml:space="preserve"><value>Keyboard Settings</value></data>
+  <data name="LeftTextBlock.Text" xml:space="preserve"><value>Left</value></data>
+  <data name="LoadButton.Label" xml:space="preserve"><value>Load(F3)</value></data>
+  <data name="LoadButtonPhone.Label" xml:space="preserve"><value>Load</value></data>
+  <data name="MyGamesButton.Label" xml:space="preserve"><value>My Games</value></data>
+  <data name="MyGamesTextBlock.Text" xml:space="preserve"><value>My Games</value></data>
+  <data name="MySavesButton.Label" xml:space="preserve"><value>My Saves</value></data>
+  <data name="MySavesTextBlock.Text" xml:space="preserve"><value>My Saves</value></data>
+  <data name="MySavesTextBlockHeader.Header" xml:space="preserve"><value>My Saves</value></data>
+  <data name="OpenButton.Label" xml:space="preserve"><value>Open</value></data>
+  <data name="PolicyTextBlock.Text" xml:space="preserve"><value>The author is not responsible for any illegal use of this software. Furthermore, there is no warranty for this software and the author is not liable for any damages.</value></data>
+  <data name="PopularSearches.Header" xml:space="preserve"><value>Popular Searches</value></data>
+  <data name="PrivacyPolicy.Title" xml:space="preserve"><value>Privacy policy</value></data>
+  <data name="PromotionCommand" xml:space="preserve"><value>Our applications</value></data>
+  <data name="RecentlyPlayed.Header" xml:space="preserve"><value>Recently Played</value></data>
+  <data name="ResetToDefaults.Content" xml:space="preserve"><value>Reset to defaults</value></data>
+  <data name="RightTextBlock.Text" xml:space="preserve"><value>Right</value></data>
+  <data name="SaveButton.Label" xml:space="preserve"><value>Save(F2)</value></data>
+  <data name="SaveButtonPhone.Label" xml:space="preserve"><value>Save</value></data>
+  <data name="SearchButtonText" xml:space="preserve"><value>Search</value></data>
+  <data name="SearchInternet.PlaceholderText" xml:space="preserve"><value>Search games on the Internet</value></data>
+  <data name="SearchMessageText" xml:space="preserve"><value>This game is not in your library. Please click 'Search' to look for this game on the Internet.</value></data>
+  <data name="SearchMyGames.PlaceholderText" xml:space="preserve"><value>Search in My Games</value></data>
+  <data name="SearchMySaves.PlaceholderText" xml:space="preserve"><value>Search in My Saves</value></data>
+  <data name="SelectButton.Label" xml:space="preserve"><value>Select</value></data>
+  <data name="Settings.Title" xml:space="preserve"><value>Settings</value></data>
+  <data name="SettingsButton.Label" xml:space="preserve"><value>Settings</value></data>
+  <data name="SetupGamePadToggle.Label" xml:space="preserve"><value>Setup Screen Gamepad</value></data>
+  <data name="ShowGamePadToggle.Label" xml:space="preserve"><value>Show Screen Gamepad</value></data>
+  <data name="SoundToggleButton.Label" xml:space="preserve"><value>Sound</value></data>
+  <data name="UpTextBlock.Text" xml:space="preserve"><value>Up</value></data>
+</root>

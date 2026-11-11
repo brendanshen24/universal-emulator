@@ -1,0 +1,132 @@
+<UserControl
+    x:Class="WinRTXamlToolkit.Controls.AnimatingContainer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:WinRTXamlToolkit.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
+    <Grid x:Name="LayoutRoot">
+        <ContentControl x:Name="ContentContainer" RenderTransformOrigin="0.1,0.1">
+            <ContentControl.Resources>
+                <Storyboard
+                    x:Name="RotationStoryboard"
+                    RepeatBehavior="Forever"
+                    Storyboard.TargetName="RotatingTransform">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="X">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyRightX"
+                                KeyTime="00:00:01"
+                                Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyBottomX"
+                                KeyTime="00:00:02"
+                                Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseIn" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyLeftX"
+                                KeyTime="00:00:03"
+                                Value="-1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyTopX"
+                                KeyTime="00:00:04"
+                                Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseIn" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Y">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyRightY"
+                                KeyTime="00:00:01"
+                                Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseIn" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyBottomY"
+                                KeyTime="00:00:02"
+                                Value="2">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyLeftY"
+                                KeyTime="00:00:03"
+                                Value="1">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseIn" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                            <EasingDoubleKeyFrame
+                                x:Name="KeyTopY"
+                                KeyTime="00:00:04"
+                                Value="0">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard
+                    x:Name="PulsingStoryboard"
+                    AutoReverse="True"
+                    RepeatBehavior="Forever"
+                    SpeedRatio="0.4"
+                    Storyboard.TargetName="PulseTransform">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="ScaleX">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                            <EasingDoubleKeyFrame
+                                x:Name="PulseKeyX"
+                                KeyTime="00:00:03"
+                                Value="1.05">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="ScaleY">
+                        <DoubleAnimationUsingKeyFrames.KeyFrames>
+                            <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                            <EasingDoubleKeyFrame
+                                x:Name="PulseKeyY"
+                                KeyTime="00:00:03"
+                                Value="1.05">
+                                <EasingDoubleKeyFrame.EasingFunction>
+                                    <SineEase EasingMode="EaseInOut" />
+                                </EasingDoubleKeyFrame.EasingFunction>
+                            </EasingDoubleKeyFrame>
+                        </DoubleAnimationUsingKeyFrames.KeyFrames>
+                    </DoubleAnimationUsingKeyFrames>
+                </Storyboard>
+            </ContentControl.Resources>
+            <ContentControl.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform x:Name="RotatingTransform" />
+                    <ScaleTransform x:Name="PulseTransform" />
+                </TransformGroup>
+            </ContentControl.RenderTransform>
+        </ContentControl>
+    </Grid>
+</UserControl>

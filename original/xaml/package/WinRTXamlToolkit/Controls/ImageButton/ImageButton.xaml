@@ -1,0 +1,136 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:WinRTXamlToolkit.Controls">
+    <Style TargetType="controls:ImageButton">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Stretch" Value="None" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:ImageButton">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_NormalStateImage" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_HoverStateImage" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_HoverStateRecycledNormalStateImage" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_HoverStateRecycledPressedStateImage" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="0.5" />
+                                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_PressedStateImage" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PART_DisabledStateImage" Storyboard.TargetProperty="Opacity">
+                                            <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                                <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                            </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusVisualWhite"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="00:00:00" />
+                                        <DoubleAnimation
+                                            Storyboard.TargetName="FocusVisualBlack"
+                                            Storyboard.TargetProperty="Opacity"
+                                            To="1"
+                                            Duration="00:00:00" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border" Margin="{TemplateBinding Padding}">
+                            <Grid>
+                                <Image
+                                    x:Name="PART_NormalStateImage"
+                                    Opacity="0"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <Image
+                                    x:Name="PART_HoverStateImage"
+                                    Opacity="0"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <Image
+                                    x:Name="PART_HoverStateRecycledNormalStateImage"
+                                    Opacity="0"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <Image
+                                    x:Name="PART_HoverStateRecycledPressedStateImage"
+                                    Opacity="0"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <Image
+                                    x:Name="PART_PressedStateImage"
+                                    Opacity="0"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <Image
+                                    x:Name="PART_DisabledStateImage"
+                                    Opacity="0"
+                                    Stretch="{TemplateBinding Stretch}" />
+                                <ContentPresenter
+                                    x:Name="ContentPresenter"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}" />
+                            </Grid>
+                        </Border>
+                        <Rectangle
+                            x:Name="FocusVisualWhite"
+                            IsHitTestVisible="False"
+                            Opacity="0"
+                            Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}"
+                            StrokeDashArray="1,1"
+                            StrokeDashOffset="1.5"
+                            StrokeEndLineCap="Square" />
+                        <Rectangle
+                            x:Name="FocusVisualBlack"
+                            IsHitTestVisible="False"
+                            Opacity="0"
+                            Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}"
+                            StrokeDashArray="1,1"
+                            StrokeDashOffset="0.5"
+                            StrokeEndLineCap="Square" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

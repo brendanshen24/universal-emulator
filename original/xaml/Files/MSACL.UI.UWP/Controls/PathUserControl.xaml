@@ -1,0 +1,59 @@
+<UserControl
+    x:Class="MSACL.UI.Helper.Controls.PathUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MSACL.UI.Helper.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:ConnectionId="1">
+    <UserControl.Resources>
+        <DataTemplate
+            x:Key="PathItemButtonTemplate"
+            x:Name="PathItemButtonTemplate"
+            x:ConnectionId="2">
+            <Button
+                MinWidth="0"
+                Margin="0,0,5,0"
+                Padding="0,0,0,0"
+                x:ConnectionId="4"
+                BorderThickness="0,0,0,0"
+                FontSize="20" />
+        </DataTemplate>
+        <DataTemplate
+            x:Key="DefaultPathItemTemplate"
+            x:Name="DefaultPathItemTemplate"
+            x:ConnectionId="3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0">
+                    <Image.Source>
+                        <Binding Path="PathItem.Image" />
+                    </Image.Source>
+                </Image>
+                <TextBlock Grid.Column="1" TextTrimming="CharacterEllipsis">
+                    <TextBlock.Style>
+                        <Binding Path="TextBoxStyle" />
+                    </TextBlock.Style>
+                    <TextBlock.Text>
+                        <Binding Path="PathItem.Name" />
+                    </TextBlock.Text>
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="2"
+                    Margin="5,0,0,0"
+                    FontFamily="Segoe UI Symbol">
+                    <TextBlock.Style>
+                        <Binding Path="TextBoxStyle" />
+                    </TextBlock.Style>&#xE013;</TextBlock>
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+    <StackPanel
+        x:Name="MainStackPanel"
+        x:ConnectionId="5"
+        Orientation="Horizontal" />
+</UserControl>

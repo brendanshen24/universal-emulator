@@ -1,0 +1,31 @@
+<Project Sdk="Uno.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0-desktop</TargetFrameworks>
+
+    <OutputType>Exe</OutputType>
+    <OutputType Condition="$(RuntimeIdentifier.StartsWith('win'))">WinExe</OutputType>
+    <ApplicationIcon>Platforms/Desktop/AppIcon.ico</ApplicationIcon>
+    <UnoSingleProject>true</UnoSingleProject>
+
+    <!-- Display name -->
+    <ApplicationTitle>UniversalEmulator</ApplicationTitle>
+    <!-- App Identifier -->
+    <ApplicationId>com.companyname.universalemulator</ApplicationId>
+    <!-- Versions -->
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>1</ApplicationVersion>
+    <!-- Package Publisher -->
+    <ApplicationPublisher>UniversalEmulator</ApplicationPublisher>
+    <!-- Package Description -->
+    <Description>UniversalEmulator powered by Uno Platform.</Description>
+
+    <!--
+      UnoFeatures are used to quickly add and manage features enabled for your app.
+      https://aka.platform.uno/singleproject-features
+    -->
+    <UnoFeatures>
+      Skia;
+    </UnoFeatures>
+  </PropertyGroup>
+
+</Project>

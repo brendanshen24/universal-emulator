@@ -1,0 +1,398 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:WinRTXamlToolkit.Controls">
+    <Style TargetType="controls:TrianglePicker">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:TrianglePicker">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Path
+                                x:Name="PART_TouchTargetTriangle"
+                                Data="M0,1 L0.5,0 L1,1 z"
+                                Fill="{TemplateBinding Foreground}"
+                                IsHitTestVisible="True"
+                                Stretch="Fill"
+                                StrokeThickness="0"
+                                UseLayoutRounding="False" />
+                            <Canvas x:Name="PART_SelectionCanvas">
+                                <Ellipse
+                                    x:Name="PART_Thumb"
+                                    Width="20"
+                                    Height="20"
+                                    Fill="Transparent"
+                                    IsHitTestVisible="False"
+                                    Stroke="{StaticResource ApplicationForegroundThemeBrush}"
+                                    StrokeThickness="3" />
+                            </Canvas>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="controls:HueRingPicker">
+        <Setter Property="ThumbBorderBrush" Value="{StaticResource ApplicationForegroundThemeBrush}" />
+        <Setter Property="ThumbBorderThickness" Value="8" />
+        <Setter Property="ThumbBackground" Value="Transparent" />
+        <Setter Property="RingThickness" Value="100.0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:HueRingPicker">
+                    <Border
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid
+                            x:Name="PART_ContainerGrid"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                            <Image
+                                x:Name="PART_HueRingImage"
+                                Margin="{TemplateBinding ThumbBorderThickness}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Stretch="None" />
+                            <controls:RingSlice
+                                x:Name="PART_RingThumb"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Fill="{TemplateBinding ThumbBackground}"
+                                IsHitTestVisible="False"
+                                RenderTransformOrigin="0.5,0.5"
+                                Stroke="{TemplateBinding ThumbBorderBrush}"
+                                StrokeThickness="{TemplateBinding ThumbBorderThickness}">
+                                <controls:RingSlice.RenderTransform>
+                                    <RotateTransform x:Name="PART_ThumbTransform" />
+                                </controls:RingSlice.RenderTransform>
+                            </controls:RingSlice>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="controls:ColorPicker">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:ColorPicker">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Resources>
+                            <Style x:Key="stretchySliderStyle" TargetType="Slider">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Slider">
+                                            <Grid Margin="{TemplateBinding Padding}">
+                                                <Grid.Resources>
+                                                    <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+                                                        <Setter Property="BorderThickness" Value="1" />
+                                                        <Setter Property="BorderBrush" Value="{StaticResource SliderThumbBorderThemeBrush}" />
+                                                        <Setter Property="Background" Value="{StaticResource SliderThumbBackgroundThemeBrush}" />
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="Thumb">
+                                                                    <Border
+                                                                        Background="{TemplateBinding Background}"
+                                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                                        BorderThickness="{TemplateBinding BorderThickness}" />
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </Grid.Resources>
+                                                <VisualStateManager.VisualStateGroups>
+                                                    <VisualStateGroup x:Name="CommonStates">
+                                                        <VisualState x:Name="Normal" />
+                                                        <VisualState x:Name="Pressed">
+                                                            <Storyboard>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalThumb" Storyboard.TargetProperty="BorderBrush">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderThumbPressedBorderThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Disabled">
+                                                            <Storyboard>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalBorder" Storyboard.TargetProperty="Stroke">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderDisabledBorderThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalDecreaseRect" Storyboard.TargetProperty="Fill">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderTrackDecreaseDisabledBackgroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalTrackRect" Storyboard.TargetProperty="Fill">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderTrackDisabledBackgroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalThumb" Storyboard.TargetProperty="Background">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderThumbDisabledBackgroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalThumb" Storyboard.TargetProperty="BorderBrush">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderThumbDisabledBackgroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="PointerOver">
+                                                            <Storyboard>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalThumb" Storyboard.TargetProperty="Background">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderThumbPointerOverBackgroundThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalThumb" Storyboard.TargetProperty="BorderBrush">
+                                                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                        <DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{StaticResource SliderThumbPointerOverBorderThemeBrush}" />
+                                                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                                </ObjectAnimationUsingKeyFrames>
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                    </VisualStateGroup>
+                                                    <VisualStateGroup x:Name="FocusStates">
+                                                        <VisualState x:Name="Focused">
+                                                            <Storyboard>
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="FocusVisualWhiteHorizontal"
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    To="1"
+                                                                    Duration="00:00:00" />
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetName="FocusVisualBlackHorizontal"
+                                                                    Storyboard.TargetProperty="Opacity"
+                                                                    To="1"
+                                                                    Duration="00:00:00" />
+                                                            </Storyboard>
+                                                        </VisualState>
+                                                        <VisualState x:Name="Unfocused" />
+                                                    </VisualStateGroup>
+                                                </VisualStateManager.VisualStateGroups>
+                                                <Grid x:Name="HorizontalTemplate" Background="Transparent">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Rectangle
+                                                        x:Name="HorizontalTrackRect"
+                                                        Grid.ColumnSpan="3"
+                                                        Fill="{TemplateBinding Foreground}" />
+                                                    <Rectangle x:Name="HorizontalDecreaseRect" Fill="Transparent" />
+                                                    <Rectangle
+                                                        x:Name="HorizontalBorder"
+                                                        Grid.ColumnSpan="3"
+                                                        Stroke="{TemplateBinding BorderBrush}"
+                                                        StrokeThickness="{TemplateBinding BorderThickness}" />
+                                                    <Thumb
+                                                        x:Name="HorizontalThumb"
+                                                        Grid.Column="1"
+                                                        Width="{StaticResource SliderTrackThemeHeight}"
+                                                        Background="{StaticResource SliderThumbBackgroundThemeBrush}"
+                                                        DataContext="{TemplateBinding Value}"
+                                                        Style="{StaticResource SliderThumbStyle}" />
+                                                    <Rectangle
+                                                        x:Name="FocusVisualWhiteHorizontal"
+                                                        Grid.ColumnSpan="3"
+                                                        IsHitTestVisible="False"
+                                                        Opacity="0"
+                                                        Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}"
+                                                        StrokeDashArray="1,1"
+                                                        StrokeDashOffset="1.5"
+                                                        StrokeEndLineCap="Square" />
+                                                    <Rectangle
+                                                        x:Name="FocusVisualBlackHorizontal"
+                                                        Grid.ColumnSpan="3"
+                                                        IsHitTestVisible="False"
+                                                        Opacity="0"
+                                                        Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}"
+                                                        StrokeDashArray="1,1"
+                                                        StrokeDashOffset="0.5"
+                                                        StrokeEndLineCap="Square" />
+                                                </Grid>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Border.Resources>
+                        <Grid x:Name="layoutRoot">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition x:Name="SwatchColumn" MinWidth="100" />
+                                <ColumnDefinition x:Name="LeftSplitterColumn" Width="22" />
+                                <ColumnDefinition x:Name="CenterClassicWheelColumn" />
+                                <ColumnDefinition x:Name="RightSplitterColumn" Width="22" />
+                                <ColumnDefinition Width="200" />
+                            </Grid.ColumnDefinitions>
+                            <controls:CustomGridSplitter Grid.Column="1" />
+                            <controls:CustomGridSplitter Grid.Column="3" />
+                            <controls:HueRingPicker
+                                x:Name="hueRing"
+                                Grid.Column="2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+                            <controls:TrianglePicker
+                                x:Name="trianglePicker"
+                                Grid.Column="2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                                <controls:TrianglePicker.Foreground>
+                                    <ImageBrush x:Name="triangleBrush" />
+                                </controls:TrianglePicker.Foreground>
+                            </controls:TrianglePicker>
+                            <StackPanel
+                                x:Name="slidersPanel"
+                                Grid.Column="4"
+                                Margin="15,0,15,0"
+                                VerticalAlignment="Center">
+                                <TextBlock Margin="0,15,0,0" Text="Hue" />
+                                <Slider
+                                    Height="15"
+                                    Margin="0,0,80,5"
+                                    Maximum="360"
+                                    Minimum="0"
+                                    StepFrequency="1"
+                                    Style="{StaticResource stretchySliderStyle}"
+                                    Value="{Binding Path=Value, ElementName=hueSlider, Mode=TwoWay}">
+                                    <Slider.Foreground>
+                                        <ImageBrush x:Name="hueBackground" Stretch="Fill" />
+                                    </Slider.Foreground>
+                                </Slider>
+                                <controls:NumericUpDown
+                                    x:Name="hueSlider"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="1"
+                                    Maximum="360"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    ValueFormat="F0" />
+                                <TextBlock Margin="0,15,0,0" Text="Saturation" />
+                                <Slider
+                                    Height="15"
+                                    Margin="0,0,80,5"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    StepFrequency="0.001"
+                                    Style="{StaticResource stretchySliderStyle}"
+                                    Value="{Binding Path=Value, ElementName=saturationSlider, Mode=TwoWay}">
+                                    <Slider.Foreground>
+                                        <ImageBrush x:Name="saturationBackground" Stretch="Fill" />
+                                    </Slider.Foreground>
+                                </Slider>
+                                <controls:NumericUpDown
+                                    x:Name="saturationSlider"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="1"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    ValueFormat="F0" />
+                                <TextBlock Margin="0,15,0,0" Text="Lightness" />
+                                <Slider
+                                    Height="15"
+                                    Margin="0,0,80,5"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    StepFrequency="0.001"
+                                    Style="{StaticResource stretchySliderStyle}"
+                                    Value="{Binding Path=Value, ElementName=lightnessSlider, Mode=TwoWay}">
+                                    <Slider.Foreground>
+                                        <ImageBrush x:Name="lightnessBackground" Stretch="Fill" />
+                                    </Slider.Foreground>
+                                </Slider>
+                                <controls:NumericUpDown
+                                    x:Name="lightnessSlider"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="1"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    ValueFormat="F0" />
+                                <TextBlock Margin="0,15,0,0" Text="Red" />
+                                <Slider
+                                    Height="15"
+                                    Margin="0,0,80,5"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    StepFrequency="0.001"
+                                    Style="{StaticResource stretchySliderStyle}"
+                                    Value="{Binding Path=Value, ElementName=redSlider, Mode=TwoWay}">
+                                    <Slider.Foreground>
+                                        <ImageBrush x:Name="redBackground" Stretch="Fill" />
+                                    </Slider.Foreground>
+                                </Slider>
+                                <controls:NumericUpDown
+                                    x:Name="redSlider"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="1"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    ValueFormat="F0" />
+                                <TextBlock Margin="0,15,0,0" Text="Green" />
+                                <Slider
+                                    Height="15"
+                                    Margin="0,0,80,5"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    StepFrequency="0.001"
+                                    Style="{StaticResource stretchySliderStyle}"
+                                    Value="{Binding Path=Value, ElementName=greenSlider, Mode=TwoWay}">
+                                    <Slider.Foreground>
+                                        <ImageBrush x:Name="greenBackground" Stretch="Fill" />
+                                    </Slider.Foreground>
+                                </Slider>
+                                <controls:NumericUpDown
+                                    x:Name="greenSlider"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="1"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    ValueFormat="F0" />
+                                <TextBlock Margin="0,15,0,0" Text="Blue" />
+                                <Slider
+                                    Height="15"
+                                    Margin="0,0,80,5"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    StepFrequency="0.001"
+                                    Style="{StaticResource stretchySliderStyle}"
+                                    Value="{Binding Path=Value, ElementName=blueSlider, Mode=TwoWay}">
+                                    <Slider.Foreground>
+                                        <ImageBrush x:Name="blueBackground" Stretch="Fill" />
+                                    </Slider.Foreground>
+                                </Slider>
+                                <controls:NumericUpDown
+                                    x:Name="blueSlider"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="1"
+                                    Maximum="255"
+                                    Minimum="0"
+                                    SmallChange="1"
+                                    ValueFormat="F0" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

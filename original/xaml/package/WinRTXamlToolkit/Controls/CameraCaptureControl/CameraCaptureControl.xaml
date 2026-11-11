@@ -1,0 +1,108 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
+    xmlns:converters="using:WinRTXamlToolkit.Converters">
+    <Style TargetType="controls:CameraCaptureControl">
+        <Setter Property="Background" Value="#FF0C0C0C" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:CameraCaptureControl">
+                    <Border
+                        x:Name="PART_LayoutRoot"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border.Resources>
+                            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                            <Storyboard x:Name="PART_FlashAnimation">
+                                <DoubleAnimationUsingKeyFrames Storyboard.TargetName="FlashRectangle" Storyboard.TargetProperty="Opacity">
+                                    <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0">
+                                            <EasingDoubleKeyFrame.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut" />
+                                            </EasingDoubleKeyFrame.EasingFunction>
+                                        </EasingDoubleKeyFrame>
+                                    </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                            <Storyboard x:Name="PART_RecordingAnimation">
+                                <DoubleAnimationUsingKeyFrames
+                                    RepeatBehavior="Forever"
+                                    Storyboard.TargetName="RecordingIcon"
+                                    Storyboard.TargetProperty="Opacity"
+                                    Duration="00:00:02">
+                                    <DoubleAnimationUsingKeyFrames.KeyFrames>
+                                        <DiscreteDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                        <DiscreteDoubleKeyFrame KeyTime="00:00:01" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames.KeyFrames>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </Border.Resources>
+                        <Grid x:Name="LayoutRoot">
+                            <controls:LayoutTransformControl>
+                                <controls:LayoutTransformControl.Transform>
+                                    <TransformGroup>
+                                        <ScaleTransform x:Name="PART_ScaleTransform" ScaleX="-1" />
+                                        <RotateTransform x:Name="PART_RotateTransform" Angle="0" />
+                                    </TransformGroup>
+                                </controls:LayoutTransformControl.Transform>
+                                <controls:LayoutTransformControl.Child>
+                                    <CaptureElement x:Name="PART_CaptureElement" Stretch="Uniform" />
+                                </controls:LayoutTransformControl.Child>
+                            </controls:LayoutTransformControl>
+                            <controls:CountdownControl
+                                x:Name="PART_CountdownControl"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                            <Grid
+                                x:Name="PART_RecordingIndicator"
+                                Margin="25,25,25,25"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="Collapsed">
+                                <TextBlock
+                                    Margin="0,7,60,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="48"
+                                    Foreground="Red"
+                                    Text="REC" />
+                                <Ellipse
+                                    x:Name="RecordingIcon"
+                                    Width="50"
+                                    Height="50"
+                                    HorizontalAlignment="Right"
+                                    Fill="Red"
+                                    Visibility="Visible" />
+                            </Grid>
+                            <Popup x:Name="PART_WebCamSelectorPopup" IsOpen="False">
+                                <Grid
+                                    x:Name="WebCamSelectorGrid"
+                                    Width="{Binding Path=ActualWidth, ElementName=LayoutRoot}"
+                                    Height="{Binding Path=ActualHeight, ElementName=LayoutRoot}"
+                                    Background="#80000000">
+                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock
+                                            Margin="10,5,10,5"
+                                            FontSize="48"
+                                            Text="Select a camera" />
+                                        <ListBox x:Name="PART_WebCamSelector" FontSize="36" />
+                                    </StackPanel>
+                                </Grid>
+                            </Popup>
+                            <Rectangle
+                                x:Name="FlashRectangle"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Fill="White"
+                                IsHitTestVisible="False"
+                                Opacity="0" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,56 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    <Style TargetType="AdaptiveGridView">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="AdaptiveGridView">
+                    <Grid>
+                        <ContentPresenter x:Name="templateProxy" Visibility="Collapsed">
+                            <ContentPresenter.Width>
+                                <TemplateBinding Property="ItemWidth" />
+                            </ContentPresenter.Width>
+                            <ContentPresenter.Height>
+                                <TemplateBinding Property="ItemHeight" />
+                            </ContentPresenter.Height>
+                            <ContentPresenter.ContentTemplate>
+                                <TemplateBinding Property="ItemTemplate" />
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                        <GridView
+                            x:Name="ListView"
+                            HorizontalAlignment="Stretch"
+                            IsItemClickEnabled="True"
+                            IsSwipeEnabled="False"
+                            IsTabStop="False"
+                            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                            SelectionMode="None">
+                            <ScrollViewer.VerticalScrollMode>
+                                <TemplateBinding Property="VerticalScrollMode" />
+                            </ScrollViewer.VerticalScrollMode>
+                            <GridView.ItemsSource>
+                                <TemplateBinding Property="ItemsSource" />
+                            </GridView.ItemsSource>
+                            <GridView.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentPresenter>
+                                        <ContentPresenter.Width>
+                                            <Binding ElementName="templateProxy" Path="Width" />
+                                        </ContentPresenter.Width>
+                                        <ContentPresenter.Height>
+                                            <Binding ElementName="templateProxy" Path="Height" />
+                                        </ContentPresenter.Height>
+                                        <ContentPresenter.ContentTemplate>
+                                            <Binding ElementName="templateProxy" Path="ContentTemplate" />
+                                        </ContentPresenter.ContentTemplate>
+                                    </ContentPresenter>
+                                </DataTemplate>
+                            </GridView.ItemTemplate>
+                        </GridView>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

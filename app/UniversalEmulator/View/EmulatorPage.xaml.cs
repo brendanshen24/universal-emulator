@@ -1,0 +1,377 @@
+using GameController;
+using GamePad.Logic;
+using MBox.Model;
+using MBox.ViewModel;
+using MBoxPanels;
+using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Navigation;
+using Windows.System;
+using Windows.UI.Core;
+
+namespace MBox.View
+{
+    public sealed class BoolToGamepadEditingStatusConverter : IValueConverter
+    {
+        public PadStatus TrueValue { get; set; } = PadStatus.Editing;
+        public PadStatus FalseValue { get; set; } = PadStatus.Playing;
+
+        public object Convert(object value, Type targetType, object parameter, string language) =>
+            value is true ? TrueValue : FalseValue;
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language) =>
+            value is PadStatus status && Equals(status, TrueValue);
+    }
+
+    // Preserves the exact XAML typo "EmulatorToGamePadeModeConverter".
+    public sealed class EmulatorToGamePadeModeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value is EmulatorType emu)
+            {
+                return emu switch
+                {
+                    EmulatorType.Snes => PadMode.Snes,
+                    EmulatorType.Sega => PadMode.Sega,
+                    EmulatorType.Gba => PadMode.Gba,
+                    _ => PadMode.Nes,
+                };
+            }
+            return PadMode.Nes;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language) =>
+            throw new NotSupportedException();
+    }
+
+    public sealed partial class EmulatorPage : CommonPage
+    {
+        public sealed record Launch(Rom Rom, bool LoadSave);
+
+        private readonly Controller _controller = new(0);
+        private bool _eventsHooked;
+        private DispatcherTimer? _controllerMenuTimer;
+        private bool _prevMenuDown;
+
+        public EmulatorPage()
+        {
+            InitializeComponent();
+        }
+
+        public EmulatorPageViewModel ViewModel => (EmulatorPageViewModel)DataContext;
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            WireUiEvents();
+
+            ViewModel.AttachPanel(EmulatorPanel);
+            ViewModel.FullScreenChanged += ViewModel_FullScreenChanged;
+            EmulatorPanel.AddController(_controller);
+            EmulatorPanel.StateChanged += Emulator_StateChanged;
+
+            if (ViewModel.IsFullScreenEnabled)
+                ApplyFullScreen(true);
+            else
+                ApplyFullScreen(false);
+
+            UpdateSoundIcon();
+            UpdateFullScreenIcon();
+
+            Launch? launch = e.Parameter as Launch;
+            if (launch == null && e.Parameter is Rom romParam)
+                launch = new Launch(romParam, false);
+
+            if (launch != null)
+            {
+                bool loaded = await ViewModel.LoadRomAsync(launch.Rom, launch.LoadSave);
+                if (!loaded)
+                {
+                    NavigateBack();
+                    return;
+                }
+            }
+
+            StartControllerMenuMonitor();
+            Focus(FocusState.Programmatic);
+        }
+
+        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            StopControllerMenuMonitor();
+            ViewModel.FullScreenChanged -= ViewModel_FullScreenChanged;
+            EmulatorPanel.StateChanged -= Emulator_StateChanged;
+
+            await ViewModel.EnsureThumbnailAsync();
+            EmulatorPanel.UnloadRom();
+
+            if (ViewModel.IsFullScreenEnabled)
+                ApplyFullScreen(false);
+
+            base.OnNavigatingFrom(e);
+        }
+
+        private void WireUiEvents()
+        {
+            if (_eventsHooked)
+                return;
+            _eventsHooked = true;
+
+            KeyDown += EmulatorPage_KeyDown;
+            KeyUp += EmulatorPage_KeyUp;
+
+            GamePad.ControlsChanged += (_, mask) =>
+            {
+                if (ViewModel.ProcessGameController && !ViewModel.IsSetupGamepadMode)
+                    EmulatorPanel.SetControls(mask);
+            };
+            GamePad.ExitSetupRequested += (_, _) => ViewModel.IsSetupGamepadMode = false;
+
+            if (FindName("Back") is AppBarButton backBtn)
+                backBtn.Click += async (_, _) => await NavigateBackWithSaveAsync();
+            if (FindName("Save") is AppBarButton saveBtn)
+                saveBtn.Click += async (_, _) => await SaveWithAnimationAsync();
+            if (FindName("Load") is AppBarButton loadBtn)
+                loadBtn.Click += async (_, _) =>
+                {
+                    await ViewModel.LoadStateAsync();
+                    HideBar();
+                };
+            if (FindName("SetupGamePad") is AppBarButton setupBtn)
+                setupBtn.Click += (_, _) =>
+                {
+                    ViewModel.IsGamePadEnabled = true;
+                    ViewModel.IsSetupGamepadMode = true;
+                    HideBar();
+                };
+            if (FindName("Settings") is AppBarButton settingsBtn)
+                settingsBtn.Click += (_, _) =>
+                {
+                    SettingsView.IsPaneOpen = true;
+                    HideBar();
+                };
+
+            ViewModel.PropertyChanged += (_, args) =>
+            {
+                if (args.PropertyName == nameof(EmulatorPageViewModel.IsSoundEnabled))
+                    UpdateSoundIcon();
+                else if (args.PropertyName == nameof(EmulatorPageViewModel.IsFullScreenEnabled))
+                    UpdateFullScreenIcon();
+            };
+        }
+
+        private void Emulator_StateChanged(object? sender, EmulatorStateType state)
+        {
+            // Keep UI state synced when panel transitions between loaded/unloaded/error.
+        }
+
+        private void ViewModel_FullScreenChanged(object? sender, bool isFullScreen)
+        {
+            ApplyFullScreen(isFullScreen);
+            UpdateFullScreenIcon();
+        }
+
+        private void ApplyFullScreen(bool enable)
+        {
+            try
+            {
+                var appWindow = App.MainWindow?.AppWindow;
+                if (appWindow != null)
+                {
+                    appWindow.SetPresenter(enable
+                        ? AppWindowPresenterKind.FullScreen
+                        : AppWindowPresenterKind.Default);
+                }
+            }
+            catch
+            {
+                // Window presenter switches might not be supported on every platform host.
+            }
+        }
+
+        private void UpdateSoundIcon()
+        {
+            if (FindName("Sound") is AppBarToggleButton btn)
+            {
+                var symbol = ViewModel.IsSoundEnabled ? Symbol.Volume : Symbol.Mute;
+                if (btn.Icon is SymbolIcon sym)
+                    sym.Symbol = symbol;
+                else
+                    btn.Icon = new SymbolIcon(symbol);
+            }
+        }
+
+        private void UpdateFullScreenIcon()
+        {
+            if (FindName("FullScreen") is AppBarToggleButton btn)
+            {
+                var glyph = ViewModel.IsFullScreenEnabled ? "\uE1D9" : "\uE1D8";
+                if (btn.Icon is FontIcon fi)
+                    fi.Glyph = glyph;
+                else
+                    btn.Icon = new FontIcon { Glyph = glyph };
+            }
+        }
+
+        private void ShowBar()
+        {
+            if (FindName("PageAppBar") is FrameworkElement bar)
+            {
+                bar.Visibility = Visibility.Visible;
+                ViewModel.ProcessGameController = false;
+                EmulatorPanel.IsEmulationPaused = true;
+                if (FindName("Back") is Control firstBtn)
+                    firstBtn.Focus(FocusState.Programmatic);
+            }
+        }
+
+        private void HideBar()
+        {
+            if (FindName("PageAppBar") is FrameworkElement bar)
+            {
+                bar.Visibility = Visibility.Collapsed;
+                ViewModel.ProcessGameController = true;
+                EmulatorPanel.IsEmulationPaused = ViewModel.IsSetupGamepadMode;
+                Focus(FocusState.Programmatic);
+            }
+        }
+
+        private async Task SaveWithAnimationAsync()
+        {
+            if (await ViewModel.SaveStateAsync())
+            {
+                HideBar();
+                if (Resources.TryGetValue("SaveAnimation", out var obj) && obj is Storyboard sb)
+                    sb.Begin();
+            }
+        }
+
+        private async Task NavigateBackWithSaveAsync()
+        {
+            await ViewModel.EnsureThumbnailAsync();
+            NavigateBack();
+        }
+
+        private void NavigateBack()
+        {
+            if (Frame?.CanGoBack == true)
+                Frame.GoBack();
+        }
+
+        private void EmulatorPage_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            var key = e.Key;
+
+            bool altDown = false;
+            try
+            {
+                var state = Microsoft.UI.Input.InputKeyboardSource.GetKeyStateForCurrentThread(VirtualKey.Menu);
+                altDown = (state & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+            }
+            catch
+            {
+                // Ignore if keyboard source query isn't implemented on current host.
+            }
+
+            if (altDown && key == VirtualKey.Enter)
+            {
+                ViewModel.IsFullScreenEnabled = !ViewModel.IsFullScreenEnabled;
+                e.Handled = true;
+                return;
+            }
+
+            var bar = FindName("PageAppBar") as FrameworkElement;
+            bool isBarCollapsed = bar == null || bar.Visibility == Visibility.Collapsed;
+
+            if (isBarCollapsed)
+            {
+                if (key == VirtualKey.F2)
+                {
+                    _ = SaveWithAnimationAsync();
+                    e.Handled = true;
+                    return;
+                }
+                if (key == VirtualKey.F3)
+                {
+                    _ = ViewModel.LoadStateAsync();
+                    e.Handled = true;
+                    return;
+                }
+                if (key == VirtualKey.Back || key == VirtualKey.Escape ||
+                    key == VirtualKey.GamepadMenu || key == VirtualKey.GamepadView ||
+                    key == VirtualKey.GoBack)
+                {
+                    if (ViewModel.IsSetupGamepadMode)
+                        ViewModel.IsSetupGamepadMode = false;
+                    else
+                        ShowBar();
+                    e.Handled = true;
+                    return;
+                }
+
+                if (ViewModel.ProcessGameController && !ViewModel.IsSetupGamepadMode)
+                {
+                    foreach (var ck in AppSettings.GetBoundControlKeys(key))
+                        EmulatorPanel.SetControl(ck, true);
+                    e.Handled = true;
+                }
+            }
+            else
+            {
+                if (key == VirtualKey.Back || key == VirtualKey.GamepadB || key == VirtualKey.GoBack)
+                {
+                    _ = NavigateBackWithSaveAsync();
+                    e.Handled = true;
+                    return;
+                }
+                if (key == VirtualKey.Escape || key == VirtualKey.GamepadMenu || key == VirtualKey.GamepadView)
+                {
+                    HideBar();
+                    e.Handled = true;
+                    return;
+                }
+            }
+        }
+
+        private void EmulatorPage_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            foreach (var ck in AppSettings.GetBoundControlKeys(e.Key))
+                EmulatorPanel.SetControl(ck, false);
+        }
+
+        private void StartControllerMenuMonitor()
+        {
+            _controllerMenuTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(50) };
+            _controllerMenuTimer.Tick += (_, _) =>
+            {
+                var st = _controller.GetState();
+                bool menuDown = st.connected && (st.start && st.back || st.back);
+                if (menuDown && !_prevMenuDown)
+                {
+                    var bar = FindName("PageAppBar") as FrameworkElement;
+                    if (bar == null || bar.Visibility == Visibility.Collapsed)
+                        ShowBar();
+                    else
+                        HideBar();
+                }
+                _prevMenuDown = menuDown;
+            };
+            _controllerMenuTimer.Start();
+        }
+
+        private void StopControllerMenuMonitor()
+        {
+            _controllerMenuTimer?.Stop();
+            _controllerMenuTimer = null;
+        }
+
+        private void Settings_CloseClicked(object? sender, EventArgs e) =>
+            SettingsView.IsPaneOpen = false;
+    }
+}

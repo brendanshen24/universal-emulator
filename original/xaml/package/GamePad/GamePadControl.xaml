@@ -1,0 +1,763 @@
+<UserControl
+    x:Class="GamePad.GamePadControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:GamePad"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="GamePad_GamePadControl">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="BackgroundBrush">#00000000</SolidColorBrush>
+        <SolidColorBrush x:Key="BorderBrush">#FFFFFFFF</SolidColorBrush>
+        <x:Double x:Key="ButtonScale">0.7</x:Double>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="Nes">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ModeButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ModeText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="X_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Y_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="R_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="C_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Z_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonXText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonYText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonRText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonCText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonZText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="L_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonLText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Snes">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ModeButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ModeText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="C_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Z_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonCText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonZText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Sega">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SelectText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="L_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonLText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="R_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonRText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Gba">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Y_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonYText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="X_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonXText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonZText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Z_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonCText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="C_Button" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ModeButton" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ModeText" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="ContentPanel">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border
+                x:Name="BlackBorder"
+                x:ConnectionId="1"
+                Background="Black"
+                Opacity="0.8">
+                <TextBlock
+                    x:Uid="GamepadTipText"
+                    Margin="10,20,10,0"
+                    FontSize="32"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+            </Border>
+            <Grid
+                x:Name="Joy_ControllerGrid"
+                Margin="1,0,0,-10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="JoyEllipse"
+                    Width="80"
+                    Height="80"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Fill="{Binding Path=AccentColor, ElementName=GamePad_GamePadControl}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="5" />
+                <Canvas Margin="10,10,10,10">
+                    <Path
+                        Canvas.Left="0.161"
+                        Canvas.Top="-0.018"
+                        Width="229.887"
+                        Height="230.125"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Data="M382.571,978.224 L382.75,903.315 L460.518,903.404 L460.429,978.402 L535.548,978.402 L535.548,1056.26 L460.518,1056.35 L460.518,1131.43 L382.661,1131.34 L382.482,1056.43 L307.75,1056.43 L307.661,978.224 z"
+                        Stretch="Fill"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        UseLayoutRounding="False" />
+                    <Path
+                        Canvas.Left="178.167"
+                        Canvas.Top="97.809"
+                        Width="27.119"
+                        Height="34.143"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Data="M321.072,926.904 L321.072,959.047 L346.192,942.976 z"
+                        Stretch="Fill"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        UseLayoutRounding="False" />
+                    <Path
+                        Canvas.Left="25.25"
+                        Canvas.Top="97.929"
+                        Width="27"
+                        Height="33.964"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Data="M307.738,925.976 L307.916,957.94 L282.915,942.404 z"
+                        Stretch="Fill"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        UseLayoutRounding="False" />
+                    <Path
+                        Canvas.Left="97.929"
+                        Canvas.Top="24.893"
+                        Width="34.142"
+                        Height="27.178"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Data="M337.989,950.012 L305.844,950.19 L322.006,925.012 z"
+                        Stretch="Fill"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        UseLayoutRounding="False" />
+                    <Path
+                        Canvas.Left="97.929"
+                        Canvas.Top="177.929"
+                        Width="34.142"
+                        Height="27.238"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Data="M336.918,951.262 L304.772,951.351 L320.964,976.5 z"
+                        Stretch="Fill"
+                        Stroke="White"
+                        StrokeThickness="2"
+                        UseLayoutRounding="False" />
+                </Canvas>
+                <Ellipse
+                    x:Name="ellipse"
+                    Width="250"
+                    Height="250"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    x:ConnectionId="13"
+                    Fill="{StaticResource BackgroundBrush}"
+                    ManipulationMode="TranslateX, TranslateY"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+            </Grid>
+            <Grid
+                x:Name="Select_ButtonGrid"
+                Margin="0,0,117,179"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="2"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="SelectButton"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="SelectText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="26.667"
+                    Foreground="White"
+                    Text="Select" />
+            </Grid>
+            <Grid
+                x:Name="Mode_ButtonGrid"
+                Margin="0,0,117,179"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="3"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="ModeButton"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ModeText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="26.667"
+                    Foreground="White"
+                    Text="Mode" />
+            </Grid>
+            <Grid
+                x:Name="Start_ButtonGrid"
+                Margin="0,0,46,180"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="4"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="StartButton"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="StartText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="26.667"
+                    Foreground="White"
+                    Text="Start" />
+            </Grid>
+            <Grid
+                x:Name="A_ButtonGrid"
+                Margin="0,0,118,38"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="5"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="A_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonAText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="A" />
+            </Grid>
+            <Grid
+                x:Name="B_ButtonGrid"
+                Margin="0,0,45,39"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="6"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="B_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonBText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="B" />
+            </Grid>
+            <Grid
+                x:Name="C_ButtonGrid"
+                Margin="0,0,-26,41"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="7"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="C_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonCText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="C" />
+            </Grid>
+            <Grid
+                x:Name="X_ButtonGrid"
+                Margin="0,0,117,108"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="8"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="X_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonXText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="X" />
+            </Grid>
+            <Grid
+                x:Name="Y_ButtonGrid"
+                Margin="0,0,44,110"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="9"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="Y_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonYText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="Y" />
+            </Grid>
+            <Grid
+                x:Name="Z_ButtonGrid"
+                Margin="0,0,-26,112"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="10"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="Z_Button"
+                    Width="100"
+                    Height="100"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonZText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="Z" />
+            </Grid>
+            <Grid
+                x:Name="L_ButtonGrid"
+                Margin="2,0,0,203"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="11"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="L_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonLText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="L" />
+            </Grid>
+            <Grid
+                x:Name="R_ButtonGrid"
+                Margin="0,0,-25,180"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                x:ConnectionId="12"
+                ManipulationMode="TranslateX, TranslateY">
+                <Grid.RenderTransform>
+                    <ScaleTransform ScaleX="{StaticResource ButtonScale}" ScaleY="{StaticResource ButtonScale}" />
+                </Grid.RenderTransform>
+                <Ellipse
+                    x:Name="R_Button"
+                    Width="100"
+                    Height="100"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Fill="{StaticResource BackgroundBrush}"
+                    Stroke="{StaticResource BorderBrush}"
+                    StrokeThickness="2" />
+                <TextBlock
+                    x:Name="ButtonRText"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="56"
+                    Foreground="White"
+                    Text="R" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

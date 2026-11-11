@@ -1,0 +1,630 @@
+<UserControl
+    x:Class="MBox.View.SettingFlyouts.BoxSettingsFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="using:MBox.ViewModel"
+    x:ConnectionId="1"
+    Background="#FF00B2F0"
+    Foreground="#FFFFFFFF">
+    <UserControl.DataContext>
+        <viewModel:BoxSettingsFlyoutViewModel />
+    </UserControl.DataContext>
+    <ScrollViewer
+        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        ScrollViewer.HorizontalScrollMode="Disabled"
+        ScrollViewer.VerticalScrollBarVisibility="Auto"
+        ScrollViewer.VerticalScrollMode="Auto">
+        <StackPanel
+            Margin="20,20,20,20"
+            HorizontalAlignment="Stretch"
+            x:ConnectionId="2"
+            Orientation="Vertical">
+            <StackPanel
+                Margin="0,0,0,20"
+                HorizontalAlignment="Stretch"
+                x:ConnectionId="3"
+                Orientation="Vertical">
+                <TextBlock
+                    x:Uid="KeyboardSettings"
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource TitleTextBlockStyle}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xE110;" />
+                    </Grid>
+                    <TextBox
+                        x:Name="UpTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="29"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xE1FD;" />
+                    </Grid>
+                    <TextBox
+                        x:Name="DownTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="30"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xE112;" />
+                    </Grid>
+                    <TextBox
+                        x:Name="LeftTextBox"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="31"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xE111;" />
+                    </Grid>
+                    <TextBox
+                        x:Name="RightTextBox"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="32"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20" x:ConnectionId="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="A" />
+                    </Grid>
+                    <TextBox
+                        x:Name="ATextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="23"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="B" />
+                    </Grid>
+                    <TextBox
+                        x:Name="BTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="24"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="C" />
+                    </Grid>
+                    <TextBox
+                        x:Name="CTextBox"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="25"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="X" />
+                    </Grid>
+                    <TextBox
+                        x:Name="XTextBox"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="26"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="4" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="Y" />
+                    </Grid>
+                    <TextBox
+                        x:Name="YTextBox"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="27"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="5" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="Z" />
+                    </Grid>
+                    <TextBox
+                        x:Name="ZTextBox"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="28"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20" x:ConnectionId="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="L" />
+                    </Grid>
+                    <TextBox
+                        x:Name="LTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="21"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="R" />
+                    </Grid>
+                    <TextBox
+                        x:Name="RTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="22"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20" x:ConnectionId="6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="START" />
+                    <TextBox
+                        x:Name="StartTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="19"
+                        IsReadOnly="True" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="SELECT/MODE" />
+                    <TextBox
+                        x:Name="SelectTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="20"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel
+                Margin="0,0,0,20"
+                HorizontalAlignment="Stretch"
+                Orientation="Vertical">
+                <TextBlock
+                    x:Uid="GamepadSettings"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource TitleTextBlockStyle}" />
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="A" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadATextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="13"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="B" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadBTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="14"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="C" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadCTextBox"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="15"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="X" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadXTextBox"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="16"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="4" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="Y" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadYTextBox"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="17"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="5" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="Z" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadZTextBox"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="18"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="L" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadLTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="11"
+                        IsReadOnly="True" />
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                            FontSize="30"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="&#xECCA;" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="R" />
+                    </Grid>
+                    <TextBox
+                        x:Name="GamepadRTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="12"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="START" />
+                    <TextBox
+                        x:Name="GamepadStartTextBox"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="9"
+                        IsReadOnly="True" />
+                    <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="SELECT/MODE" />
+                    <TextBox
+                        x:Name="GamepadSelectTextBox"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,4,0,4"
+                        x:ConnectionId="10"
+                        IsReadOnly="True" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                <Button
+                    x:Uid="ResetToDefaults"
+                    Margin="0,4,0,4"
+                    HorizontalAlignment="Stretch"
+                    x:ConnectionId="7"
+                    Background="{StaticResource AccentColorBrush}"
+                    Foreground="#FFFFFFFF" />
+                <Button
+                    x:Uid="CloseButton"
+                    Margin="0,4,0,4"
+                    HorizontalAlignment="Stretch"
+                    x:ConnectionId="8"
+                    Background="{StaticResource AccentColorBrush}"
+                    Foreground="#FFFFFFFF" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

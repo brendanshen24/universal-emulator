@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="ArchiveCorruptedMessage" xml:space="preserve"><value>Archive is corrupted.</value></data>
+  <data name="BAbbr" xml:space="preserve"><value>B</value></data>
+  <data name="CancelButton" xml:space="preserve"><value>Cancel</value></data>
+  <data name="EmailBodyProblemReport" xml:space="preserve"><value>[Please describe your problem here]</value></data>
+  <data name="EmailTitleProblemReport" xml:space="preserve"><value>Problem report</value></data>
+  <data name="Error" xml:space="preserve"><value>Error</value></data>
+  <data name="GBAbbr" xml:space="preserve"><value>GB</value></data>
+  <data name="InformationTitle" xml:space="preserve"><value>Information</value></data>
+  <data name="KBAbbr" xml:space="preserve"><value>KB</value></data>
+  <data name="MBAbbr" xml:space="preserve"><value>MB</value></data>
+  <data name="MoreAppsMessage" xml:space="preserve"><value>Would you like to try our other applications?</value></data>
+  <data name="RateAppMessage" xml:space="preserve"><value>Do you like this application?</value></data>
+  <data name="RateButton" xml:space="preserve"><value>Rate</value></data>
+  <data name="ReportProblemButton" xml:space="preserve"><value>Report a problem</value></data>
+  <data name="SystemDefaultLanguage" xml:space="preserve"><value>(System default)</value></data>
+  <data name="TBAbbr" xml:space="preserve"><value>TB</value></data>
+  <data name="YesButton" xml:space="preserve"><value>Yes</value></data>
+</root>

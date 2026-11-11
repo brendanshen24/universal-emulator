@@ -1,0 +1,81 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+    <Style TargetType="SlidableListItem">
+        <Setter Property="LeftForeground" Value="White" />
+        <Setter Property="RightForeground" Value="White" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="#FFFFFFFF" />
+        <Setter Property="ActivationWidth" Value="80" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="SlidableListItem">
+                    <Grid>
+                        <Grid x:Name="CommandContainer" Margin="1,1,1,1">
+                            <StackPanel
+                                x:Name="LeftCommandPanel"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <StackPanel.RenderTransform>
+                                    <CompositeTransform />
+                                </StackPanel.RenderTransform>
+                                <SymbolIcon>
+                                    <SymbolIcon.Symbol>
+                                        <TemplateBinding Property="LeftIcon" />
+                                    </SymbolIcon.Symbol>
+                                    <SymbolIcon.Foreground>
+                                        <TemplateBinding Property="LeftForeground" />
+                                    </SymbolIcon.Foreground>
+                                </SymbolIcon>
+                                <TextBlock Margin="10,0,0,0" FontSize="15">
+                                    <TextBlock.Text>
+                                        <TemplateBinding Property="LeftLabel" />
+                                    </TextBlock.Text>
+                                    <TextBlock.Foreground>
+                                        <TemplateBinding Property="LeftForeground" />
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel
+                                x:Name="RightCommandPanel"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <StackPanel.RenderTransform>
+                                    <CompositeTransform />
+                                </StackPanel.RenderTransform>
+                                <TextBlock Margin="0,0,10,0" FontSize="15">
+                                    <TextBlock.Text>
+                                        <TemplateBinding Property="RightLabel" />
+                                    </TextBlock.Text>
+                                    <TextBlock.Foreground>
+                                        <TemplateBinding Property="RightForeground" />
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                                <SymbolIcon>
+                                    <SymbolIcon.Symbol>
+                                        <TemplateBinding Property="RightIcon" />
+                                    </SymbolIcon.Symbol>
+                                    <SymbolIcon.Foreground>
+                                        <TemplateBinding Property="RightForeground" />
+                                    </SymbolIcon.Foreground>
+                                </SymbolIcon>
+                            </StackPanel>
+                        </Grid>
+                        <Grid
+                            x:Name="ContentGrid"
+                            Background="{TemplateBinding Background}"
+                            ManipulationMode="TranslateX,System">
+                            <Grid.RenderTransform>
+                                <CompositeTransform x:Name="ContentTransform" />
+                            </Grid.RenderTransform>
+                            <ContentPresenter />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

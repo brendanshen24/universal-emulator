@@ -1,0 +1,34 @@
+<UserControl
+    x:Class="MSACL.UI.UWP.Controls.ConfirmTextBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:MSACL.UI.UWP"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:ConnectionId="1">
+    <Grid x:Name="LayoutGrid" x:ConnectionId="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBox
+            x:Name="EditText"
+            Grid.Column="0"
+            x:ConnectionId="3" />
+        <Button
+            x:Name="ConfirmButton"
+            Grid.Column="1"
+            VerticalAlignment="Stretch"
+            x:ConnectionId="4"
+            Content="&#xE10B;"
+            FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+        <Button
+            x:Name="CancelButton"
+            Grid.Column="2"
+            VerticalAlignment="Stretch"
+            x:ConnectionId="5"
+            Content="&#xE10A;"
+            FontFamily="{ThemeResource SymbolThemeFontFamily}" />
+    </Grid>
+</UserControl>

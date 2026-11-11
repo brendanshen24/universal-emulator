@@ -1,0 +1,15 @@
+<Application
+    x:Class="MBox.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Resources exactly as in the original App.xaml (decoded from resources.pri). No XamlControlsResources:
+         the original ran on the pre-Fluent Windows 10 (14393) control styles, which is what Uno ships by default. -->
+    <Application.Resources>
+        <ResourceDictionary>
+            <x:String x:Key="AppName">Universal Emulator</x:String>
+            <SolidColorBrush x:Key="AccentColorBrush" Color="#FFCD4B2F" />
+            <Thickness x:Key="AppBarBottomBorderThemeThickness">0,0,0,0</Thickness>
+            <SolidColorBrush x:Key="SnappedBackgroundColor">#cd4b2f</SolidColorBrush>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

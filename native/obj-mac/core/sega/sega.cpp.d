@@ -1,0 +1,21 @@
+obj-mac/core/sega/sega.cpp.o: \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/SDKSettings.json \
+  ../libnesbox/src/sega/sega.cpp ../libnesbox/src/sega/Sega.h \
+  ../libnesbox/src/sega/core/md.h ../libnesbox/src/sega/core/musa/m68k.h \
+  ../libnesbox/src/sega/core/musa/m68kconf.h \
+  ../libnesbox/src/sega/core/cz80/cz80.h ../libnesbox/src/sega/core/fm.h \
+  ../libnesbox/src/sega/core/sn76496.h \
+  ../libnesbox/src/sega/core/system.h \
+  ../libnesbox/src/sega/../../include/nesbox.h \
+  ../libnesbox/src/sega/core/rc-vars.h
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/SDKSettings.json:
+../libnesbox/src/sega/Sega.h:
+../libnesbox/src/sega/core/md.h:
+../libnesbox/src/sega/core/musa/m68k.h:
+../libnesbox/src/sega/core/musa/m68kconf.h:
+../libnesbox/src/sega/core/cz80/cz80.h:
+../libnesbox/src/sega/core/fm.h:
+../libnesbox/src/sega/core/sn76496.h:
+../libnesbox/src/sega/core/system.h:
+../libnesbox/src/sega/../../include/nesbox.h:
+../libnesbox/src/sega/core/rc-vars.h:

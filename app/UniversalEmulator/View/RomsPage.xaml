@@ -1,0 +1,251 @@
+<view:CommonPage
+    x:Class="MBox.View.RomsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="using:MBox.View"
+    xmlns:viewModel="using:MBox.ViewModel">
+    <view:CommonPage.DataContext>
+        <viewModel:RomsPageViewModel />
+    </view:CommonPage.DataContext>
+    <view:CommonPage.Resources>
+        <ResourceDictionary>
+            <CollectionViewSource
+                x:Key="ItemsViewSource">
+                <CollectionViewSource.Source>
+                    <Binding Path="Roms" />
+                </CollectionViewSource.Source>
+            </CollectionViewSource>
+            <Style x:Key="GridViewItemStyle1" TargetType="GridViewItem">
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="Background" Value="#00FFFFFF" />
+                <Setter Property="TabNavigation" Value="Local" />
+                <Setter Property="IsHoldingEnabled" Value="True" />
+                <Setter Property="Margin" Value="0,0,2,2" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewItem">
+                            <GridViewItemPresenter
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}"
+                                CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}"
+                                CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}"
+                                ContentMargin="4,4,4,4"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                                DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}"
+                                PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                                PointerOverBackgroundMargin="1,1,1,1"
+                                ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                SelectedBackground="{StaticResource AccentColorBrush}"
+                                SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}"
+                                SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                SelectedPointerOverBackground="#B3CD4B2F"
+                                SelectedPointerOverBorderBrush="#B2CD4B2F"
+                                SelectionCheckMarkVisualEnabled="True" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </view:CommonPage.Resources>
+    <Grid Background="#FF8ED7EE">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ApplicationViewStates">
+                <VisualState x:Name="Landscape" />
+                <VisualState x:Name="Filled">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PageTitle" Storyboard.TargetProperty="(TextBlock.FontFamily)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <FontFamily>Global User Interface</FontFamily>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackButton" Storyboard.TargetProperty="(Control.FontFamily)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <FontFamily>Global User Interface</FontFamily>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackButton" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Thickness>20,49,39,0</Thickness>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ItemGridView" Storyboard.TargetProperty="(Control.Padding)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Thickness>20,16,116,46</Thickness>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PageTitle" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Image
+            Grid.RowSpan="2"
+            Source="ms-appx:///Assets/Back.png"
+            Stretch="UniformToFill" />
+        <GridView
+            x:Name="ItemGridView"
+            Grid.Row="1"
+            Padding="120,16,40,46"
+            AutomationProperties.AutomationId="ItemsGridView"
+            AutomationProperties.Name="Items"
+            IsItemClickEnabled="True"
+            IsSwipeEnabled="True"
+            ItemContainerStyle="{StaticResource GridViewItemStyle1}"
+            SelectionMode="Multiple"
+            TabIndex="1">
+            <GridView.ItemsSource>
+                <Binding Source="{StaticResource ItemsViewSource}" />
+            </GridView.ItemsSource>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel
+                        Width="162"
+                        Height="156"
+                        HorizontalAlignment="Left"
+                        Background="{StaticResource AccentColorBrush}">
+                        <Border Height="116">
+                            <Border.Background>
+                                <ImageBrush
+                                    AlignmentX="Center"
+                                    AlignmentY="Center"
+                                    ImageSource="ms-appx:///Assets/HeaderLogo.png"
+                                    Stretch="None" />
+                            </Border.Background>
+                            <Image
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Stretch="UniformToFill">
+                                <Image.Source>
+                                    <Binding Path="ImagePath" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
+                        <StackPanel VerticalAlignment="Top" Background="{StaticResource AccentColorBrush}">
+                            <TextBlock
+                                Margin="15,-4,15,0"
+                                Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}"
+                                Style="{StaticResource TitleTextBlockStyle}">
+                                <TextBlock.Text>
+                                    <Binding Path="Name" />
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <Grid Grid.Row="0" Background="{StaticResource AccentColorBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="BackButton"
+                Margin="40,49,0,0"
+                VerticalAlignment="Top"
+                AutomationProperties.AutomationId="BackButton"
+                AutomationProperties.ItemType="Navigation Button"
+                AutomationProperties.Name="Back"
+                Style="{StaticResource NavigationBackButtonNormalStyle}" />
+            <TextBlock
+                x:Name="PageTitle"
+                x:Uid="MyGamesTextBlock"
+                Grid.Column="1"
+                Margin="49,6,0,0"
+                VerticalAlignment="Center"
+                IsHitTestVisible="False"
+                Style="{StaticResource HeaderTextBlockStyle}"
+                TextWrapping="NoWrap" />
+            <StackPanel
+                x:Name="TopStack"
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Grid x:Name="TopGrid" />
+            </StackPanel>
+            <AutoSuggestBox
+                x:Name="SearchBoxSuggestions"
+                x:Uid="SearchMyGames"
+                Grid.Column="3"
+                Width="270"
+                Height="35"
+                Margin="0,0,40,40"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom">
+                <AutoSuggestBox.QueryIcon>
+                    <FontIcon FontSize="20" Glyph="&#xE16E;" />
+                </AutoSuggestBox.QueryIcon>
+            </AutoSuggestBox>
+        </Grid>
+        <CommandBar
+            x:Name="PageAppBar"
+            Grid.Row="1"
+            VerticalAlignment="Bottom"
+            Canvas.ZIndex="10"
+            Background="{StaticResource AccentColorBrush}"
+            IsOpen="True"
+            IsSticky="True">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
+                    x:Uid="DeleteButton"
+                    Icon="Delete"
+                    Label="Delete">
+                    <AppBarButton.Command>
+                        <Binding Path="DeleteCommand" />
+                    </AppBarButton.Command>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton
+                    x:Uid="AddButton"
+                    Icon="Add"
+                    Label="Add">
+                    <AppBarButton.Command>
+                        <Binding Path="AddCommand" />
+                    </AppBarButton.Command>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Grid>
+</view:CommonPage>

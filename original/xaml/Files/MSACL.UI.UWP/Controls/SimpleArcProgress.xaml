@@ -1,0 +1,44 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MSACL.UI.UWP.Controls">
+    <Style x:Key="SimpleArcProgressStyle" TargetType="SimpleArcProgress">
+        <Setter Property="Fill" Value="{ThemeResource ProgressBarForegroundThemeBrush}" />
+        <Setter Property="ThicknessRate" Value="15" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="SimpleArcProgress">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ContentPresenter
+                            x:Name="InnerContent"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <TemplateBinding Property="InnerContent" />
+                        </ContentPresenter>
+                        <Path x:Name="ProgressPath">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure x:Name="ProgressFigure">
+                                        <ArcSegment x:Name="Arc" />
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                            <Path.Transform3D>
+                                <CompositeTransform3D x:Name="DirectionTransform" />
+                            </Path.Transform3D>
+                        </Path>
+                        <ContentPresenter
+                            x:Name="OuterContent"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <TemplateBinding Property="OuterContent" />
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource SimpleArcProgressStyle}" TargetType="SimpleArcProgress">
+        <Style.Setters />
+    </Style>
+</ResourceDictionary>

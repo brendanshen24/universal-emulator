@@ -1,0 +1,464 @@
+<ui:VisualStateSwitcher
+    x:Class="MSACL.UI.Controls.AppBarDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="using:MSACL.UI">
+    <ui:VisualStateSwitcher.DataContext>
+        <Binding>
+            <Binding.RelativeSource>
+                <RelativeSource Mode="Self" />
+            </Binding.RelativeSource>
+        </Binding>
+    </ui:VisualStateSwitcher.DataContext>
+    <ui:VisualStateSwitcher.Resources>
+        <ItemsPanelTemplate x:Key="HorizontalCommandsPanelTemplate">
+            <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+        <ItemsPanelTemplate x:Key="VerticalCommandsPanelTemplate">
+            <StackPanel Orientation="Vertical" />
+        </ItemsPanelTemplate>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FFCCCCCC" />
+            <Setter Property="Foreground" Value="#FF000000" />
+            <Setter Property="BorderBrush" Value="#FFCCCCCC" />
+            <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}" />
+            <Setter Property="Padding" Value="12,4,12,4" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                To="0.76"
+                                                Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <SolidColorBrush Color="#FFFFFFFF" />
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="#FF000000"
+                                                Duration="0" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                To="#FF000000"
+                                                Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="FocusVisualWhite"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="FocusVisualBlack"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border
+                                x:Name="Border"
+                                MinWidth="90"
+                                Margin="0,0,0,0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}" />
+                            <Rectangle
+                                x:Name="FocusVisualWhite"
+                                Margin="4,4,4,4"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}"
+                                StrokeDashArray="1,1"
+                                StrokeDashOffset="1.5"
+                                StrokeEndLineCap="Square" />
+                            <Rectangle
+                                x:Name="FocusVisualBlack"
+                                Margin="4,4,4,4"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}"
+                                StrokeDashArray="1,1"
+                                StrokeDashOffset="0.5"
+                                StrokeEndLineCap="Square" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DefaultButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#FFCCCCCC" />
+            <Setter Property="Foreground" Value="#FFFFFFFF" />
+            <Setter Property="BorderBrush" Value="#FFCCCCCC" />
+            <Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}" />
+            <Setter Property="Padding" Value="12,4,12,4" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Background"
+                                                Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                To="0.76"
+                                                Duration="0" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                To="0.76"
+                                                Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                    <DiscreteObjectKeyFrame KeyTime="0">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <SolidColorBrush Color="#FFFFFFFF" />
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Background"
+                                                Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                To="#FF000000"
+                                                Duration="0" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="Border"
+                                                Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                To="#FF000000"
+                                                Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}" />
+                                                </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="FocusVisualWhite"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="FocusVisualBlack"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="1"
+                                                Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                    <VisualState x:Name="PointerFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border
+                                x:Name="Background"
+                                MinWidth="90"
+                                Margin="0,0,0,0"
+                                Background="{StaticResource DefaultButtonBackgroundColor}"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+                            <Border
+                                x:Name="BorderBackground"
+                                MinWidth="90"
+                                Margin="0,0,0,0"
+                                BorderBrush="#FF000000"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+                            <Border
+                                x:Name="Border"
+                                MinWidth="90"
+                                Margin="0,0,0,0"
+                                BorderBrush="{StaticResource DefaultButtonBackgroundColor}"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}" />
+                            <Rectangle
+                                x:Name="FocusVisualWhite"
+                                Margin="4,4,4,4"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}"
+                                StrokeDashArray="1,1"
+                                StrokeDashOffset="1.5"
+                                StrokeEndLineCap="Square" />
+                            <Rectangle
+                                x:Name="FocusVisualBlack"
+                                Margin="4,4,4,4"
+                                IsHitTestVisible="False"
+                                Opacity="0"
+                                Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}"
+                                StrokeDashArray="1,1"
+                                StrokeDashOffset="0.5"
+                                StrokeEndLineCap="Square" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </ui:VisualStateSwitcher.Resources>
+    <Border
+        x:Name="border"
+        MinWidth="250"
+        MaxWidth="500"
+        HorizontalAlignment="Stretch"
+        x:ConnectionId="1"
+        Background="{StaticResource ComboBoxPopupBackgroundThemeBrush}"
+        BorderBrush="{StaticResource ComboBoxPopupBorderThemeBrush}"
+        BorderThickness="1,1,1,1">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="ApplicationViewStates" x:ConnectionId="2">
+                <VisualState x:Name="FullScreenLandscape" x:ConnectionId="3">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VerticalCommands" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Filled" x:ConnectionId="4">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VerticalCommands" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="FullScreenPortrait" x:ConnectionId="5">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VerticalCommands" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Snapped" x:ConnectionId="6">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalCommands" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Collapsed</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VerticalCommands" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Visibility>Visible</Visibility>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="border" Storyboard.TargetProperty="(FrameworkElement.Width)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <x:Double>301</x:Double>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalCommands" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <HorizontalAlignment>Left</HorizontalAlignment>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VerticalCommands" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <HorizontalAlignment>Center</HorizontalAlignment>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="HorizontalCommands" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Thickness>0,14,0,0</Thickness>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VerticalCommands" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                            <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <Thickness>0,14,0,0</Thickness>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames.KeyFrames>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <StackPanel
+            x:Name="content"
+            Margin="20,20,20,20"
+            x:ConnectionId="7"
+            Background="#FFFFFFFF">
+            <TextBlock
+                x:Name="text"
+                x:ConnectionId="8"
+                Foreground="#FF000000"
+                Style="{StaticResource BodyTextBlockStyle}">
+                <TextBlock.Text>
+                    <Binding Path="Text" />
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBox
+                x:Name="input"
+                Margin="0,12,0,0"
+                x:ConnectionId="9"
+                BorderBrush="#FF5C5C5C">
+                <TextBox.Text>
+                    <Binding Mode="TwoWay" Path="InputText" />
+                </TextBox.Text>
+                <TextBox.Width>
+                    <Binding ElementName="content" Path="ActualWidth" />
+                </TextBox.Width>
+            </TextBox>
+            <StackPanel Margin="0,14,0,0">
+                <ItemsControl
+                    x:Name="HorizontalCommands"
+                    HorizontalAlignment="Right"
+                    x:ConnectionId="10"
+                    IsTabStop="False"
+                    ItemsPanel="{StaticResource HorizontalCommandsPanelTemplate}">
+                    <ItemsControl.ItemsSource>
+                        <Binding Path="Commands" />
+                    </ItemsControl.ItemsSource>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Height="32"
+                                Margin="20,0,0,0"
+                                x:ConnectionId="13"
+                                Style="{StaticResource ButtonStyle}">
+                                <Binding Path="Label" />
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl
+                    x:Name="VerticalCommands"
+                    x:ConnectionId="11"
+                    IsTabStop="False"
+                    ItemsPanel="{StaticResource VerticalCommandsPanelTemplate}">
+                    <ItemsControl.ItemsSource>
+                        <Binding Path="Commands" />
+                    </ItemsControl.ItemsSource>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button
+                                Height="32"
+                                Margin="0,5,0,0"
+                                HorizontalAlignment="Stretch"
+                                x:ConnectionId="12"
+                                Style="{StaticResource ButtonStyle}">
+                                <Binding Path="Label" />
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</ui:VisualStateSwitcher>

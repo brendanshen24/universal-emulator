@@ -1,0 +1,36 @@
+﻿<Project>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'UniversalEmulator'">
+    <Content Include="$(MSBuildThisFileDirectory)..\native\libmboxpanels.dylib"
+             Condition="Exists('$(MSBuildThisFileDirectory)..\native\libmboxpanels.dylib') and ($(RuntimeIdentifier) == '' or $(RuntimeIdentifier.StartsWith('osx')))">
+      <Link>libmboxpanels.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>false</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)..\native\mboxpanels.dll"
+             Condition="Exists('$(MSBuildThisFileDirectory)..\native\mboxpanels.dll') and ($(RuntimeIdentifier) == '' or $(RuntimeIdentifier.StartsWith('win')))">
+      <Link>mboxpanels.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <ExcludeFromSingleFile>false</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="PackageMacAppBundle"
+          AfterTargets="Publish"
+          Condition="'$(MSBuildProjectName)' == 'UniversalEmulator' and $(RuntimeIdentifier.StartsWith('osx')) and $([MSBuild]::IsOSPlatform('OSX'))">
+    <PropertyGroup>
+      <_MacAppDir>$([System.IO.Path]::GetFullPath('$(PublishDir)..\UniversalEmulator.app'))</_MacAppDir>
+      <_MacContentsDir>$(_MacAppDir)/Contents</_MacContentsDir>
+      <_MacOSDir>$(_MacContentsDir)/MacOS</_MacOSDir>
+      <_MacResDir>$(_MacContentsDir)/Resources</_MacResDir>
+    </PropertyGroup>
+    <RemoveDir Directories="$(_MacAppDir)" />
+    <MakeDir Directories="$(_MacOSDir);$(_MacResDir)" />
+    <Exec Command="cp -R &quot;$(PublishDir).&quot; &quot;$(_MacOSDir)/&quot;" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Platforms\Desktop\Info.plist" DestinationFolder="$(_MacContentsDir)" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Platforms\Desktop\AppIcon.icns" DestinationFolder="$(_MacResDir)" />
+    <Exec Command="chmod +x &quot;$(_MacOSDir)/UniversalEmulator&quot; &amp;&amp; codesign --force --deep --sign - &quot;$(_MacAppDir)&quot;" />
+  </Target>
+</Project>
+

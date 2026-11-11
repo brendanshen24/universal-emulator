@@ -1,0 +1,585 @@
+<view:CommonPage
+    x:Class="MBox.View.StartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:MSACL.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:flyouts="using:MBox.View.SettingFlyouts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:MBox.Model"
+    xmlns:mstoolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:triggers="using:MSACL.UI.UWP.CustomTriggers"
+    xmlns:view="using:MBox.View"
+    xmlns:viewModel="using:MBox.ViewModel"
+    x:Name="ThisPage"
+    x:ConnectionId="1"
+    FontFamily="Global User Interface">
+    <view:CommonPage.DataContext>
+        <viewModel:StartPageViewModel />
+    </view:CommonPage.DataContext>
+    <view:CommonPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="RomItemStyle" TargetType="GridViewItem">
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="Background" Value="#00FFFFFF" />
+                <Setter Property="TabNavigation" Value="Local" />
+                <Setter Property="IsHoldingEnabled" Value="True" />
+                <Setter Property="Margin" Value="0,0,2,2" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewItem">
+                            <GridViewItemPresenter
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}"
+                                CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}"
+                                CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}"
+                                ContentMargin="4,4,4,4"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                                DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}"
+                                PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                                PointerOverBackgroundMargin="1,1,1,1"
+                                ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                SelectedBackground="{StaticResource AccentColorBrush}"
+                                SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}"
+                                SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                SelectedPointerOverBackground="#B3CD4B2F"
+                                SelectedPointerOverBorderBrush="#B2CD4B2F"
+                                SelectionCheckMarkVisualEnabled="True" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="NarrowRomItemStyle" TargetType="GridViewItem">
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}" />
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}" />
+                <Setter Property="Background" Value="#00FFFFFF" />
+                <Setter Property="TabNavigation" Value="Local" />
+                <Setter Property="IsHoldingEnabled" Value="True" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewItem">
+                            <GridViewItemPresenter
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                CheckBrush="{ThemeResource ListViewItemCheckThemeBrush}"
+                                CheckHintBrush="{ThemeResource ListViewItemCheckHintThemeBrush}"
+                                CheckSelectingBrush="{ThemeResource ListViewItemCheckSelectingThemeBrush}"
+                                ContentMargin="0,4,0,4"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}"
+                                DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}"
+                                DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                FocusBorderBrush="{ThemeResource ListViewItemFocusBorderThemeBrush}"
+                                PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}"
+                                PointerOverBackground="{ThemeResource ListViewItemPointerOverBackgroundThemeBrush}"
+                                PointerOverBackgroundMargin="1,1,1,1"
+                                ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                SelectedBackground="{StaticResource AccentColorBrush}"
+                                SelectedBorderThickness="{ThemeResource GridViewItemCompactSelectedBorderThemeThickness}"
+                                SelectedForeground="{ThemeResource ListViewItemSelectedForegroundThemeBrush}"
+                                SelectedPointerOverBackground="#B3CD4B2F"
+                                SelectedPointerOverBorderBrush="#B2CD4B2F"
+                                SelectionCheckMarkVisualEnabled="True" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="HamburgerStyle" TargetType="HamburgerMenu">
+                <Setter Property="HamburgerMenuTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE700;" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="HamburgerMenu">
+                            <Grid>
+                                <SplitView x:Name="MainSplitView">
+                                    <SplitView.OpenPaneLength>
+                                        <TemplateBinding Property="OpenPaneLength" />
+                                    </SplitView.OpenPaneLength>
+                                    <SplitView.PanePlacement>
+                                        <TemplateBinding Property="PanePlacement" />
+                                    </SplitView.PanePlacement>
+                                    <SplitView.DisplayMode>
+                                        <TemplateBinding Property="DisplayMode" />
+                                    </SplitView.DisplayMode>
+                                    <SplitView.CompactPaneLength>
+                                        <TemplateBinding Property="CompactPaneLength" />
+                                    </SplitView.CompactPaneLength>
+                                    <SplitView.PaneBackground>
+                                        <TemplateBinding Property="PaneBackground" />
+                                    </SplitView.PaneBackground>
+                                    <SplitView.IsPaneOpen>
+                                        <TemplateBinding Property="IsPaneOpen" />
+                                    </SplitView.IsPaneOpen>
+                                    <SplitView.Pane>
+                                        <Grid x:Name="PaneGrid">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0">
+                                                <Grid.Height>
+                                                    <TemplateBinding Property="HamburgerHeight" />
+                                                </Grid.Height>
+                                            </Grid>
+                                            <ListView
+                                                x:Name="ButtonsListView"
+                                                Grid.Row="1"
+                                                IsItemClickEnabled="True"
+                                                SelectionMode="None"
+                                                TabNavigation="Once">
+                                                <ListView.ItemsSource>
+                                                    <TemplateBinding Property="ItemsSource" />
+                                                </ListView.ItemsSource>
+                                                <ListView.ItemTemplate>
+                                                    <TemplateBinding Property="ItemTemplate" />
+                                                </ListView.ItemTemplate>
+                                                <ListView.Width>
+                                                    <TemplateBinding Property="OpenPaneLength" />
+                                                </ListView.Width>
+                                                <ListView.ItemContainerStyle>
+                                                    <Style TargetType="ListViewItem">
+                                                        <Setter Property="Padding" Value="0,0,0,0" />
+                                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                                    </Style>
+                                                </ListView.ItemContainerStyle>
+                                            </ListView>
+                                            <Grid Grid.Row="2">
+                                                <Grid.Visibility>
+                                                    <TemplateBinding Property="OptionsVisibility" />
+                                                </Grid.Visibility>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <ListView
+                                                    x:Name="OptionsListView"
+                                                    Grid.Row="1"
+                                                    VerticalAlignment="Bottom"
+                                                    IsItemClickEnabled="True">
+                                                    <ListView.ItemsSource>
+                                                        <TemplateBinding Property="OptionsItemsSource" />
+                                                    </ListView.ItemsSource>
+                                                    <ListView.ItemTemplate>
+                                                        <TemplateBinding Property="OptionsItemTemplate" />
+                                                    </ListView.ItemTemplate>
+                                                    <ListView.Width>
+                                                        <TemplateBinding Property="OpenPaneLength" />
+                                                    </ListView.Width>
+                                                    <ListView.ItemContainerStyle>
+                                                        <Style TargetType="ListViewItem">
+                                                            <Setter Property="Padding" Value="0,0,0,0" />
+                                                        </Style>
+                                                    </ListView.ItemContainerStyle>
+                                                </ListView>
+                                            </Grid>
+                                        </Grid>
+                                    </SplitView.Pane>
+                                    <ContentPresenter x:Name="ContentPart" Content="{TemplateBinding Content}" />
+                                </SplitView>
+                                <Button
+                                    x:Name="HamburgerButton"
+                                    Padding="0,0,0,0"
+                                    VerticalAlignment="Top"
+                                    Background="#00FFFFFF"
+                                    BorderThickness="0,0,0,0"
+                                    IsTabStop="True">
+                                    <Button.Width>
+                                        <TemplateBinding Property="HamburgerWidth" />
+                                    </Button.Width>
+                                    <Button.Height>
+                                        <TemplateBinding Property="HamburgerHeight" />
+                                    </Button.Height>
+                                    <ContentControl Foreground="{TemplateBinding Foreground}">
+                                        <ContentControl.ContentTemplate>
+                                            <TemplateBinding Property="HamburgerMenuTemplate" />
+                                        </ContentControl.ContentTemplate>
+                                        <ContentControl.Margin>
+                                            <TemplateBinding Property="HamburgerMargin" />
+                                        </ContentControl.Margin>
+                                    </ContentControl>
+                                </Button>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <converters:BoolToVisibilityConverter
+                x:Key="BoolToVisibilityConverter"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Visibility_x003E_.FalseValue="Collapsed"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Visibility_x003E_.TrueValue="Visible" />
+            <converters:BoolToVisibilityConverter
+                x:Key="InverseVisibilityConverter"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Visibility_x003E_.FalseValue="Visible"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Visibility_x003E_.TrueValue="Collapsed" />
+            <converters:BoolToBrushConverter
+                x:Key="HamburgerForegroundConverter"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Media.Brush_x003E_.FalseValue="#FFFFFFFF"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Media.Brush_x003E_.TrueValue="#FF000000" />
+            <converters:BoolToBrushConverter
+                x:Key="HamburgerBackgroundConverter"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Media.Brush_x003E_.FalseValue="#FF00B2F0"
+                BoolToValueConverter_x0060_1_x003C_Windows.UI.Xaml.Media.Brush_x003E_.TrueValue="#33FFFFFF" />
+            <DataTemplate x:Key="HamburgerButtonTemplate">
+                <Grid
+                    Height="48"
+                    HorizontalAlignment="Stretch"
+                    x:ConnectionId="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <FontIcon
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        x:ConnectionId="3" />
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        x:ConnectionId="4"
+                        FontSize="16" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="RomGridTemplate">
+                <StackPanel
+                    Width="160"
+                    Height="160"
+                    HorizontalAlignment="Left"
+                    Background="{StaticResource AccentColorBrush}">
+                    <Border Height="116">
+                        <Border.Background>
+                            <ImageBrush
+                                AlignmentX="Center"
+                                AlignmentY="Center"
+                                ImageSource="ms-appx:///Assets/HeaderLogo.png"
+                                Stretch="None" />
+                        </Border.Background>
+                        <Image
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Stretch="UniformToFill">
+                            <Image.Source>
+                                <Binding Path="ImagePath" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+                    <TextBlock
+                        Margin="12,0,12,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}">
+                        <TextBlock.Text>
+                            <Binding Path="Name" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="NarrowRomGridTemplate">
+                <Grid
+                    Height="140"
+                    HorizontalAlignment="Stretch"
+                    Background="{StaticResource AccentColorBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Height="140">
+                        <Border.Background>
+                            <ImageBrush
+                                AlignmentX="Center"
+                                AlignmentY="Center"
+                                ImageSource="ms-appx:///Assets/HeaderLogo.png"
+                                Stretch="None" />
+                        </Border.Background>
+                        <Image
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Stretch="UniformToFill">
+                            <Image.Source>
+                                <Binding Path="ImagePath" />
+                            </Image.Source>
+                        </Image>
+                    </Border>
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="4,0,4,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        TextAlignment="Left">
+                        <TextBlock.Text>
+                            <Binding Path="Name" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+            </DataTemplate>
+            <ItemsPanelTemplate x:Key="NarrowItemsPanel">
+                <ItemsStackPanel HorizontalAlignment="Stretch" Orientation="Vertical" />
+            </ItemsPanelTemplate>
+        </ResourceDictionary>
+    </view:CommonPage.Resources>
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:DiagonalSizeTrigger MinDiagonalSizeInInches="7" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ThisPage.IsNarrowMode" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:CompositeTrigger>
+                            <triggers:CompositeTrigger.Triggers>
+                                <triggers:DiagonalSizeTrigger MinDiagonalSizeInInches="0" />
+                                <triggers:WindowSizeTrigger MinWidth="548" />
+                            </triggers:CompositeTrigger.Triggers>
+                        </triggers:CompositeTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ThisPage.IsNarrowMode" Value="False" />
+                        <Setter Target="Header.Height" Value="48" />
+                        <Setter Target="HamburgerElement.DisplayMode" Value="CompactOverlay" />
+                        <Setter Target="PageTitle.FontSize" Value="16" />
+                        <Setter Target="PageTitle.FontWeight" Value="SemiBold" />
+                        <Setter Target="ImageLogo.Width" Value="36" />
+                        <Setter Target="ImageLogo.Stretch" Value="Uniform" />
+                        <Setter Target="stackPanel.Margin" Value="20,0,0,0" />
+                        <Setter Target="PageTitle.Margin" Value="8,0,0,0" />
+                        <Setter Target="SearchBoxSuggestions.Margin" Value="0,0,20,0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <triggers:CompositeTrigger>
+                            <triggers:CompositeTrigger.Triggers>
+                                <triggers:DiagonalSizeTrigger MinDiagonalSizeInInches="0" />
+                                <triggers:WindowSizeTrigger MinWidth="0" />
+                            </triggers:CompositeTrigger.Triggers>
+                        </triggers:CompositeTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="ThisPage.IsNarrowMode" Value="True" />
+                        <Setter Target="Header.Height" Value="48" />
+                        <Setter Target="HamburgerElement.DisplayMode" Value="Overlay" />
+                        <Setter Target="PageTitle.Visibility" Value="Collapsed" />
+                        <Setter Target="ImageLogo.Width" Value="36" />
+                        <Setter Target="ImageLogo.Stretch" Value="Uniform" />
+                        <Setter Target="stackPanel.Margin" Value="56,0,0,0" />
+                        <Setter Target="SearchBoxSuggestions.Margin" Value="0,0,12,0" />
+                        <Setter Target="ItemGridView.Padding" Value="12,16,12,16" />
+                        <Setter Target="ItemGridView.ItemTemplate" Value="{StaticResource NarrowRomGridTemplate}" />
+                        <Setter Target="ItemGridView.ItemsPanel" Value="{StaticResource NarrowItemsPanel}" />
+                        <Setter Target="ItemGridView.ItemContainerStyle" Value="{StaticResource NarrowRomItemStyle}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <mstoolkit:HamburgerMenu
+            x:Name="HamburgerElement"
+            x:ConnectionId="5"
+            DisplayMode="CompactInline"
+            Foreground="#FFFFFFFF"
+            ItemTemplate="{StaticResource HamburgerButtonTemplate}"
+            PaneBackground="#FF00B2F0"
+            Style="{StaticResource HamburgerStyle}">
+            <Grid Background="#FF8ED7EE">
+                <Grid.RowDefinitions>
+                    <RowDefinition
+                        x:Name="Header"
+                        Height="130"
+                        x:ConnectionId="6" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="ApplicationViewStates" x:ConnectionId="18">
+                        <VisualState x:Name="Landscape" x:ConnectionId="19" />
+                        <VisualState x:Name="Filled" x:ConnectionId="20">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PageTitle" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Visibility>Collapsed</Visibility>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="stackPanel" Storyboard.TargetProperty="(FrameworkElement.Margin)">
+                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Thickness>16,2,0,0</Thickness>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ItemGridView" Storyboard.TargetProperty="(Control.Padding)">
+                                    <ObjectAnimationUsingKeyFrames.KeyFrames>
+                                        <DiscreteObjectKeyFrame KeyTime="0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <Thickness>20,16,40,46</Thickness>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames.KeyFrames>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Image
+                    Grid.RowSpan="2"
+                    Source="ms-appx:///Assets/Back.png"
+                    Stretch="UniformToFill" />
+                <Grid Grid.Row="0" Background="{StaticResource AccentColorBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel
+                        x:Name="stackPanel"
+                        Grid.Column="0"
+                        Margin="40,0,0,0"
+                        VerticalAlignment="Center"
+                        x:ConnectionId="14"
+                        Orientation="Horizontal">
+                        <Image
+                            x:Name="ImageLogo"
+                            Width="100"
+                            VerticalAlignment="Center"
+                            x:ConnectionId="16"
+                            Source="ms-appx:///Assets/HeaderLogo.png"
+                            Stretch="Uniform" />
+                        <TextBlock
+                            x:Name="PageTitle"
+                            Margin="16,0,0,0"
+                            VerticalAlignment="Center"
+                            x:ConnectionId="17"
+                            IsHitTestVisible="False"
+                            Style="{StaticResource HeaderTextBlockStyle}"
+                            Text="{StaticResource AppName}"
+                            TextWrapping="NoWrap" />
+                    </StackPanel>
+                    <AutoSuggestBox
+                        x:Name="SearchBoxSuggestions"
+                        x:Uid="SearchMyGames"
+                        Grid.Column="2"
+                        Width="200"
+                        Height="36"
+                        Margin="0,8,40,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        x:ConnectionId="15">
+                        <AutoSuggestBox.QueryIcon>
+                            <FontIcon FontSize="20" Glyph="&#xE16E;" />
+                        </AutoSuggestBox.QueryIcon>
+                    </AutoSuggestBox>
+                </Grid>
+                <GridView
+                    x:Name="ItemGridView"
+                    Grid.Row="1"
+                    Padding="40,16,40,16"
+                    HorizontalContentAlignment="Center"
+                    x:ConnectionId="7"
+                    IsItemClickEnabled="True"
+                    IsSwipeEnabled="True"
+                    ItemContainerStyle="{StaticResource RomItemStyle}"
+                    ItemTemplate="{StaticResource RomGridTemplate}"
+                    SelectionMode="Single"
+                    TabIndex="1" />
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="{StaticResource AccentColorBrush}"
+                    Opacity="0.85">
+                    <Grid.Visibility>
+                        <Binding Converter="{StaticResource BoolToVisibilityConverter}" Path="IsLongOperationActive" />
+                    </Grid.Visibility>
+                    <StackPanel
+                        x:Name="LongOperationContainer"
+                        Margin="0,100,0,0"
+                        VerticalAlignment="Center"
+                        x:ConnectionId="10">
+                        <TextBlock
+                            x:Name="LongOperationType"
+                            HorizontalAlignment="Center"
+                            x:ConnectionId="11"
+                            Style="{StaticResource HeaderTextBlockStyle}"
+                            TextWrapping="NoWrap">
+                            <TextBlock.Text>
+                                <Binding Path="LongOperationProgressText" />
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Grid
+                            x:Name="LongOperationProgress"
+                            Width="450"
+                            Height="8"
+                            Margin="0,50,0,0"
+                            x:ConnectionId="12">
+                            <Rectangle Fill="{ThemeResource ListViewItemOverlayForegroundThemeBrush}" Opacity="0.2" />
+                            <ProgressBar
+                                VerticalAlignment="Stretch"
+                                Foreground="{ThemeResource ListViewItemOverlayForegroundThemeBrush}"
+                                IsIndeterminate="False">
+                                <ProgressBar.Value>
+                                    <Binding Path="LongOperationProgress" />
+                                </ProgressBar.Value>
+                                <ProgressBar.Background>
+                                    <NullExtension />
+                                </ProgressBar.Background>
+                            </ProgressBar>
+                        </Grid>
+                        <TextBlock
+                            x:Name="LongOperationTextProgress"
+                            Margin="15,15,0,0"
+                            HorizontalAlignment="Center"
+                            x:ConnectionId="13"
+                            Style="{StaticResource SubheaderTextBlockStyle}"
+                            TextWrapping="NoWrap">
+                            <TextBlock.Text>
+                                <Binding Path="LongOperationTextProgress" />
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+                <SplitView
+                    x:Name="SettingsView"
+                    Grid.RowSpan="2"
+                    x:ConnectionId="8"
+                    DisplayMode="Overlay"
+                    IsTabStop="False"
+                    LightDismissOverlayMode="On"
+                    OpenPaneLength="340"
+                    PaneBackground="#FF00B2F0"
+                    PanePlacement="Right">
+                    <SplitView.Pane>
+                        <flyouts:BoxSettingsFlyout x:ConnectionId="9" />
+                    </SplitView.Pane>
+                </SplitView>
+            </Grid>
+        </mstoolkit:HamburgerMenu>
+    </Grid>
+</view:CommonPage>
