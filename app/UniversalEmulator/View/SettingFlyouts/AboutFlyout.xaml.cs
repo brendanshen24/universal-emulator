@@ -1,4 +1,3 @@
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 namespace MBox.View.SettingFlyouts
@@ -10,9 +9,5 @@ namespace MBox.View.SettingFlyouts
             InitializeComponent();
         }
 
-        private async void SupportLink_Click(object sender, RoutedEventArgs e)
-        {
-            await AppHelpers.SendFeedbackEmailAsync();
-        }
     }
 }

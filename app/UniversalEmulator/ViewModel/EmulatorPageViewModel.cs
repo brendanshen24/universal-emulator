@@ -183,7 +183,6 @@ namespace MBox.ViewModel
 
                 VideoMode = _panel.VideoMode;
                 await library.MarkPlayedAsync(rom);
-                await library.SaveAsync();
                 return true;
             }
             catch

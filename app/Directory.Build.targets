@@ -16,6 +16,32 @@
     </Content>
   </ItemGroup>
 
+  <!-- Original Store binaries on Windows: MBoxPanels.Original (host of NesboxPanels.dll / GameController.dll)
+       goes into an "Original" folder next to the exe; the app loads it at runtime (MBoxPanels/Originals.cs). -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'UniversalEmulator'">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)MBoxPanels.Contracts\MBoxPanels.Contracts.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'UniversalEmulator'">
+    <_WantOriginalHost Condition="$([MSBuild]::IsOSPlatform('Windows')) and ('$(RuntimeIdentifier)' == '' or $(RuntimeIdentifier.StartsWith('win')))">true</_WantOriginalHost>
+    <_OriginalHostOut>$(MSBuildThisFileDirectory)MBoxPanels.Original\bin\$(Configuration)\net10.0-windows10.0.19041.0\</_OriginalHostOut>
+  </PropertyGroup>
+
+  <Target Name="BuildOriginalHost" AfterTargets="Build" Condition="'$(_WantOriginalHost)' == 'true'">
+    <MSBuild Projects="$(MSBuildThisFileDirectory)MBoxPanels.Original\MBoxPanels.Original.csproj"
+             Targets="Restore;Build"
+             Properties="Configuration=$(Configuration);_RestoreToken=$([System.Guid]::NewGuid())"
+             RemoveProperties="RuntimeIdentifier;TargetFramework;PublishProfile;SelfContained;PublishSingleFile;PublishReadyToRun;PublishDir;Platform" />
+    <ItemGroup>
+      <_OriginalHostFiles Include="$(_OriginalHostOut)*.*" Exclude="$(_OriginalHostOut)*.pdb;$(_OriginalHostOut)MBoxPanels.Contracts.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_OriginalHostFiles)" DestinationFolder="$(OutDir)Original" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="PublishOriginalHost" AfterTargets="Publish" DependsOnTargets="BuildOriginalHost" Condition="'$(_WantOriginalHost)' == 'true'">
+    <Copy SourceFiles="@(_OriginalHostFiles)" DestinationFolder="$(PublishDir)Original" SkipUnchangedFiles="true" />
+  </Target>
+
   <Target Name="PackageMacAppBundle"
           AfterTargets="Publish"
           Condition="'$(MSBuildProjectName)' == 'UniversalEmulator' and $(RuntimeIdentifier.StartsWith('osx')) and $([MSBuild]::IsOSPlatform('OSX'))">

@@ -65,6 +65,96 @@ namespace MBox.View
 
         public EmulatorPageViewModel ViewModel => (EmulatorPageViewModel)DataContext;
 
+#if DEBUG
+        [System.Runtime.InteropServices.DllImport("user32", ExactSpelling = true)]
+        private static extern nint SendMessageW(nint hwnd, uint message, nint wParam, nint lParam);
+
+        internal static async Task RunSmokeTestAsync(Frame frame, string log)
+        {
+            void Report(string message) => File.AppendAllText(log, message + Environment.NewLine);
+            try
+            {
+                await Task.Delay(250);
+                if (OperatingSystem.IsWindows() && App.MainWindow is { } window)
+                {
+                    const uint WmGetIcon = 0x7f;
+                    if (Uno.UI.Xaml.WindowHelper.GetNativeWindow(window) is not Uno.UI.NativeElementHosting.Win32NativeWindow native ||
+                        SendMessageW(native.Hwnd, WmGetIcon, 0, 0) == 0 ||
+                        SendMessageW(native.Hwnd, WmGetIcon, 1, 0) == 0)
+                        throw new InvalidOperationException("The desktop host did not apply the package logo to its window.");
+                    Report("Window has small and large icons.");
+                }
+                if (frame.Content is not StartPage start ||
+                    start.FindName("HamburgerElement") is not Microsoft.Toolkit.Uwp.UI.Controls.HamburgerMenu { TemplateItemCount: 4 })
+                    throw new InvalidOperationException("The original hamburger template did not bind all four menu items.");
+
+                var library = App.Current.Library;
+                var games = library.AllRoms.Where(rom =>
+                    rom.Name is "Chase" or "Airwolf 92 (Public domain)" or "Top Gear (USA)").ToArray();
+                if (games.Length < 2)
+                    throw new InvalidOperationException("Could not find the NES and SNES smoke-test games.");
+
+                foreach (var game in games)
+                {
+                    string romName = game.Path!.Split('/').Last();
+                    Report($"Opening {romName}");
+                    frame.Navigate(typeof(EmulatorPage));
+                    var page = (EmulatorPage)frame.Content;
+                    var panel = page.EmulatorPanel;
+                    if (panel.UsesOriginal && !page._controller.UsesOriginal)
+                        throw new InvalidOperationException("The original game controller could not be loaded.");
+                    var pad = page._controller.GetState();
+                    Report($"Original controller={page._controller.UsesOriginal}, connected={pad.connected}");
+                    panel.LoadRom(romName, await library.ReadRomAsync(game));
+                    await Task.Delay(1200);
+                    Report($"Original={panel.UsesOriginal} State={panel.State} Type={panel.LoadedEmulator}");
+                    if (panel.State != EmulatorStateType.RomLoaded)
+                        throw new InvalidOperationException("ROM failed to load.");
+                    panel.SetControl(ControlKey.Start, true);
+                    await Task.Delay(100);
+                    panel.SetControl(ControlKey.Start, false);
+                    byte[] save = panel.SaveState();
+                    using var png = new MemoryStream();
+                    bool visibleFrame = false;
+                    for (int attempt = 0; attempt < 12 && !visibleFrame; attempt++)
+                    {
+                        png.SetLength(0);
+                        await panel.SaveSnapshotToStream(png);
+                        using var snapshot = SkiaSharp.SKBitmap.Decode(png.ToArray());
+                        visibleFrame = snapshot != null && snapshot.Pixels.Any(pixel =>
+                            pixel.Red != 0 || pixel.Green != 0 || pixel.Blue != 0);
+                        if (!visibleFrame)
+                            await Task.Delay(500);
+                    }
+                    Report($"State bytes={save.Length}, PNG bytes={png.Length}");
+                    if (save.Length == 0 || !visibleFrame)
+                        throw new InvalidOperationException("Save was empty or the game never rendered a visible frame.");
+                    panel.LoadState(save);
+                    page.ShowBar();
+                    if (page.PageAppBar.Visibility != Visibility.Visible || panel.IsControllerInputEnabled)
+                        throw new InvalidOperationException("Opening the command bar did not switch input modes.");
+                    await Task.Delay(250);
+                    page.HideBar();
+                    if (page.PageAppBar.Visibility != Visibility.Collapsed || !panel.IsControllerInputEnabled)
+                        throw new InvalidOperationException("Closing the command bar did not restore gameplay input.");
+                    frame.GoBack();
+                    await Task.Delay(300);
+                    if (frame.Content is not StartPage)
+                        throw new InvalidOperationException("Returning to library failed.");
+                }
+                Report("PASS");
+            }
+            catch (Exception e)
+            {
+                Report(e.ToString());
+            }
+            finally
+            {
+                App.MainWindow?.Close();
+            }
+        }
+#endif
+
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -102,13 +192,12 @@ namespace MBox.View
             Focus(FocusState.Programmatic);
         }
 
-        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             StopControllerMenuMonitor();
             ViewModel.FullScreenChanged -= ViewModel_FullScreenChanged;
             EmulatorPanel.StateChanged -= Emulator_StateChanged;
 
-            await ViewModel.EnsureThumbnailAsync();
             EmulatorPanel.UnloadRom();
 
             if (ViewModel.IsFullScreenEnabled)
@@ -143,13 +232,8 @@ namespace MBox.View
                     await ViewModel.LoadStateAsync();
                     HideBar();
                 };
-            if (FindName("SetupGamePad") is AppBarButton setupBtn)
-                setupBtn.Click += (_, _) =>
-                {
-                    ViewModel.IsGamePadEnabled = true;
-                    ViewModel.IsSetupGamepadMode = true;
-                    HideBar();
-                };
+            if (FindName("SetupGamePad") is AppBarToggleButton setupBtn)
+                setupBtn.Click += (_, _) => HideBar();
             if (FindName("Settings") is AppBarButton settingsBtn)
                 settingsBtn.Click += (_, _) =>
                 {
@@ -225,7 +309,8 @@ namespace MBox.View
             {
                 bar.Visibility = Visibility.Visible;
                 ViewModel.ProcessGameController = false;
-                EmulatorPanel.IsEmulationPaused = true;
+                EmulatorPanel.IsControllerInputEnabled = false;
+                EmulatorPanel.SetControls(0);
                 if (FindName("Back") is Control firstBtn)
                     firstBtn.Focus(FocusState.Programmatic);
             }
@@ -237,7 +322,7 @@ namespace MBox.View
             {
                 bar.Visibility = Visibility.Collapsed;
                 ViewModel.ProcessGameController = true;
-                EmulatorPanel.IsEmulationPaused = ViewModel.IsSetupGamepadMode;
+                EmulatorPanel.IsControllerInputEnabled = true;
                 Focus(FocusState.Programmatic);
             }
         }

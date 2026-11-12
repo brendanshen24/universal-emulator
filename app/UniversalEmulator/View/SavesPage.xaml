@@ -62,6 +62,25 @@
             <RowDefinition Height="130" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <CommandBar
+            x:Name="PageAppBar"
+            Grid.Row="1"
+            VerticalAlignment="Bottom"
+            Canvas.ZIndex="10"
+            Background="{StaticResource AccentColorBrush}"
+            IsOpen="True"
+            IsSticky="True">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
+                    x:Uid="DeleteButton"
+                    Icon="Delete"
+                    Label="Delete">
+                    <AppBarButton.Command>
+                        <Binding Path="DeleteCommand" />
+                    </AppBarButton.Command>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ApplicationViewStates">
                 <VisualState x:Name="Landscape" />
@@ -218,24 +237,5 @@
                 </AutoSuggestBox.QueryIcon>
             </AutoSuggestBox>
         </Grid>
-        <CommandBar
-            x:Name="PageAppBar"
-            Grid.Row="1"
-            VerticalAlignment="Bottom"
-            Canvas.ZIndex="10"
-            Background="{StaticResource AccentColorBrush}"
-            IsOpen="True"
-            IsSticky="True">
-            <CommandBar.SecondaryCommands>
-                <AppBarButton
-                    x:Uid="DeleteButton"
-                    Icon="Delete"
-                    Label="Delete">
-                    <AppBarButton.Command>
-                        <Binding Path="DeleteCommand" />
-                    </AppBarButton.Command>
-                </AppBarButton>
-            </CommandBar.SecondaryCommands>
-        </CommandBar>
     </Grid>
 </view:CommonPage>

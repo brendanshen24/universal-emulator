@@ -62,6 +62,35 @@
             <RowDefinition Height="130" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <CommandBar
+            x:Name="PageAppBar"
+            Grid.Row="1"
+            VerticalAlignment="Bottom"
+            Canvas.ZIndex="10"
+            Background="{StaticResource AccentColorBrush}"
+            IsOpen="True"
+            IsSticky="True">
+            <CommandBar.SecondaryCommands>
+                <AppBarButton
+                    x:Uid="DeleteButton"
+                    Icon="Delete"
+                    Label="Delete">
+                    <AppBarButton.Command>
+                        <Binding Path="DeleteCommand" />
+                    </AppBarButton.Command>
+                </AppBarButton>
+            </CommandBar.SecondaryCommands>
+            <CommandBar.PrimaryCommands>
+                <AppBarButton
+                    x:Uid="AddButton"
+                    Icon="Add"
+                    Label="Add">
+                    <AppBarButton.Command>
+                        <Binding Path="AddCommand" />
+                    </AppBarButton.Command>
+                </AppBarButton>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="ApplicationViewStates">
                 <VisualState x:Name="Landscape" />
@@ -218,34 +247,5 @@
                 </AutoSuggestBox.QueryIcon>
             </AutoSuggestBox>
         </Grid>
-        <CommandBar
-            x:Name="PageAppBar"
-            Grid.Row="1"
-            VerticalAlignment="Bottom"
-            Canvas.ZIndex="10"
-            Background="{StaticResource AccentColorBrush}"
-            IsOpen="True"
-            IsSticky="True">
-            <CommandBar.SecondaryCommands>
-                <AppBarButton
-                    x:Uid="DeleteButton"
-                    Icon="Delete"
-                    Label="Delete">
-                    <AppBarButton.Command>
-                        <Binding Path="DeleteCommand" />
-                    </AppBarButton.Command>
-                </AppBarButton>
-            </CommandBar.SecondaryCommands>
-            <CommandBar.PrimaryCommands>
-                <AppBarButton
-                    x:Uid="AddButton"
-                    Icon="Add"
-                    Label="Add">
-                    <AppBarButton.Command>
-                        <Binding Path="AddCommand" />
-                    </AppBarButton.Command>
-                </AppBarButton>
-            </CommandBar.PrimaryCommands>
-        </CommandBar>
     </Grid>
 </view:CommonPage>

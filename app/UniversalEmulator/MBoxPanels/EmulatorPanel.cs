@@ -39,7 +39,12 @@ namespace MBoxPanels
 
         public event EventHandler<EmulatorStateType>? StateChanged;
 
-        private readonly VideoCanvas _canvas;
+        // On Windows: the original MBoxPanels.EmulatorPanel (NesboxPanels.dll) does everything — emulation,
+        // Direct3D rendering, XAudio2 sound, blur — and this element only hosts its window. Otherwise null and the
+        // rebuilt core below is used.
+        private readonly MBoxPanels.Contracts.IOriginalEmulatorPanel? _original;
+
+        private readonly VideoCanvas? _canvas;
         private readonly object _bitmapLock = new();
         private SkiaSharp.SKBitmap? _skBitmap;
         private readonly object _sync = new();
@@ -61,10 +66,52 @@ namespace MBoxPanels
         private long _lastTicks;
         private bool _audioOpened;
         private bool _disposed;
+        private volatile bool _isControllerInputEnabled = true;
+
+        internal bool IsControllerInputEnabled
+        {
+            get => _isControllerInputEnabled;
+            set => _isControllerInputEnabled = value;
+        }
 
         public EmulatorPanel()
         {
             Background = new SolidColorBrush(Microsoft.UI.Colors.Black);
+
+            try
+            {
+                _original = Originals.Instance?.CreateEmulatorPanel();
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine($"Original EmulatorPanel unavailable, using rebuilt core: {e}");
+            }
+
+            if (_original != null)
+            {
+                _original.StateChanged += state => SetState((EmulatorStateType)state);
+                Children.Add(new ContentPresenter
+                {
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    VerticalContentAlignment = VerticalAlignment.Stretch,
+                    Content = new Uno.UI.NativeElementHosting.Win32NativeWindow(_original.WindowHandle),
+                });
+                Unloaded += (_, _) => Dispose();
+            }
+
+            // The page XAML centres the panel (the original SwapChainPanel measured itself to the game's aspect
+            // ratio). Both backends aspect-fit inside their own bounds, so fill the page instead.
+            Loaded += (_, _) =>
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch;
+                VerticalAlignment = VerticalAlignment.Stretch;
+            };
+
+            if (_original != null)
+                return;
+
             _canvas = new VideoCanvas(this)
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -73,6 +120,8 @@ namespace MBoxPanels
             Children.Add(_canvas);
             Unloaded += (_, _) => StopLoop();
         }
+
+        internal bool UsesOriginal => _original != null;
 
         public bool IsSoundEnabled
         {
@@ -108,19 +157,27 @@ namespace MBoxPanels
 
         private static void OnSoundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is EmulatorPanel panel && !(bool)e.NewValue && panel._audioOpened)
+            if (d is EmulatorPanel { _original: { } original })
+                original.IsSoundEnabled = (bool)e.NewValue;
+            else if (d is EmulatorPanel panel && !(bool)e.NewValue && panel._audioOpened)
                 NativeMethods.nb_audio_clear();
         }
 
         private static void OnBlurChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is EmulatorPanel panel)
-                panel._canvas.Invalidate();
+            if (d is EmulatorPanel { _original: { } original })
+                original.IsBlurEnabled = (bool)e.NewValue;
+            else if (d is EmulatorPanel panel)
+                panel._canvas?.Invalidate();
         }
 
         private static void OnPausedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is EmulatorPanel panel)
+            if (d is EmulatorPanel { _original: { } original })
+            {
+                original.IsEmulationPaused = (bool)e.NewValue;
+            }
+            else if (d is EmulatorPanel panel)
             {
                 if ((bool)e.NewValue && panel._audioOpened)
                     NativeMethods.nb_audio_clear();
@@ -131,7 +188,12 @@ namespace MBoxPanels
 
         private static void OnVideoModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is EmulatorPanel panel)
+            if (d is EmulatorPanel { _original: { } original })
+            {
+                if ((VideoModeType)e.NewValue != VideoModeType.Unknown)
+                    original.VideoMode = (int)e.NewValue;
+            }
+            else if (d is EmulatorPanel panel)
             {
                 var mode = (VideoModeType)e.NewValue;
                 if (mode == VideoModeType.PAL)
@@ -144,6 +206,14 @@ namespace MBoxPanels
         public void AddController(Controller controller)
         {
             if (controller == null) return;
+            if (_original != null)
+            {
+                // The original's IGameController.GetControlsState() — polled by the panel — returns the same mask
+                // the original app built from the pad state and the user's bindings.
+                AppSettings.BuildControllerMask(controller); // load the bindings on the UI thread first
+                _original.AddController(() => IsControllerInputEnabled ? (uint)AppSettings.BuildControllerMask(controller) : 0);
+                return;
+            }
             lock (_sync)
             {
                 if (_controllers.All(c => c.Id != controller.Id))
@@ -153,6 +223,11 @@ namespace MBoxPanels
 
         public void SetControl(ControlKey key, bool pressed)
         {
+            if (_original != null)
+            {
+                _original.SetControl((int)key, pressed);
+                return;
+            }
             uint bit = 1u << (int)key;
             lock (_sync)
             {
@@ -165,6 +240,11 @@ namespace MBoxPanels
 
         public void SetControls(int mask)
         {
+            if (_original != null)
+            {
+                _original.SetControls(mask);
+                return;
+            }
             lock (_sync)
                 _manualControlMask = (uint)mask;
         }
@@ -176,6 +256,31 @@ namespace MBoxPanels
             if (string.IsNullOrEmpty(fileName) || romData == null || romData.Length == 0)
             {
                 SetState(EmulatorStateType.Error);
+                return;
+            }
+
+            fileName = GetCoreRomName(fileName, romData);
+
+            if (_original != null)
+            {
+                _original.IsSoundEnabled = IsSoundEnabled;
+                _original.IsBlurEnabled = IsBlurEnabled;
+                _original.IsEmulationPaused = IsEmulationPaused;
+                if (VideoMode != VideoModeType.Unknown)
+                    _original.VideoMode = (int)VideoMode;
+                try
+                {
+                    _original.LoadRom(fileName, romData, stateData);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine($"LoadRom failed: {e}");
+                    SetState(EmulatorStateType.Error);
+                    return;
+                }
+                LoadedEmulator = (EmulatorType)_original.LoadedEmulator;
+                if (State != EmulatorStateType.Error)
+                    SetState(EmulatorStateType.RomLoaded);
                 return;
             }
 
@@ -230,8 +335,51 @@ namespace MBoxPanels
             StartLoop();
         }
 
+        private static string GetCoreRomName(string fileName, ReadOnlySpan<byte> rom)
+        {
+            string extension = Path.GetExtension(fileName);
+            if (extension.Equals(".sfc", StringComparison.OrdinalIgnoreCase))
+                return Path.ChangeExtension(fileName, ".smc");
+            if (!extension.Equals(".bin", StringComparison.OrdinalIgnoreCase))
+                return fileName;
+
+            // A raw SNES dump may be named .bin, which the core normally treats as Sega.
+            int copierHeaderSize = rom.Length % 0x8000;
+            if (copierHeaderSize is not (0 or 512))
+                return fileName;
+
+            return HasSnesHeader(rom, copierHeaderSize + 0x7fc0) ||
+                   HasSnesHeader(rom, copierHeaderSize + 0xffc0) ||
+                   HasSnesHeader(rom, copierHeaderSize + 0x40ffc0)
+                ? Path.ChangeExtension(fileName, ".smc")
+                : fileName;
+        }
+
+        private static bool HasSnesHeader(ReadOnlySpan<byte> rom, int offset)
+        {
+            if (rom.Length < offset + 64)
+                return false;
+
+            var header = rom.Slice(offset, 64);
+            int mapping = header[0x15] & 0xef;
+            ushort inverseChecksum = BinaryPrimitives.ReadUInt16LittleEndian(header[0x1c..]);
+            ushort checksum = BinaryPrimitives.ReadUInt16LittleEndian(header[0x1e..]);
+            ushort resetVector = BinaryPrimitives.ReadUInt16LittleEndian(header[0x3c..]);
+            return mapping is 0x20 or 0x21 or 0x22 or 0x23 or 0x25 or 0x2a &&
+                   checksum is not (0 or 0xffff) && (checksum ^ inverseChecksum) == 0xffff &&
+                   resetVector >= 0x8000;
+        }
+
         public void UnloadRom()
         {
+            if (_original != null)
+            {
+                if (!_disposed)
+                    _original.UnloadRom();
+                LoadedEmulator = EmulatorType.Unknown;
+                SetState(EmulatorStateType.NoRom);
+                return;
+            }
             StopLoop();
             lock (_sync)
             {
@@ -252,6 +400,8 @@ namespace MBoxPanels
 
         public byte[] SaveState()
         {
+            if (_original != null)
+                return _disposed ? Array.Empty<byte>() : _original.SaveState();
             lock (_sync)
             {
                 if (_core == IntPtr.Zero)
@@ -272,6 +422,13 @@ namespace MBoxPanels
             if (data == null || data.Length == 0)
                 return;
 
+            if (_original != null)
+            {
+                if (!_disposed)
+                    _original.LoadState(data);
+                return;
+            }
+
             lock (_sync)
             {
                 if (_core != IntPtr.Zero)
@@ -281,6 +438,17 @@ namespace MBoxPanels
 
         public async Task SaveSnapshotToStream(Stream stream)
         {
+            if (_original != null)
+            {
+                byte[] snapshot = _disposed ? Array.Empty<byte>() : _original.SaveSnapshot();
+                if (snapshot.Length > 0)
+                {
+                    await stream.WriteAsync(snapshot, 0, snapshot.Length).ConfigureAwait(false);
+                    await stream.FlushAsync().ConfigureAwait(false);
+                }
+                return;
+            }
+
             byte[]? bgraCopy;
             int w;
             int h;
@@ -358,8 +526,11 @@ namespace MBoxPanels
         private bool StepFrame()
         {
             uint p1 = _manualControlMask;
-            foreach (var c in _controllers)
-                p1 |= (uint)AppSettings.BuildControllerMask(c);
+            if (IsControllerInputEnabled)
+            {
+                foreach (var c in _controllers)
+                    p1 |= (uint)AppSettings.BuildControllerMask(c);
+            }
 
             IntPtr fb = NativeMethods.nb_tick(_core, p1, 0);
             int sampleCount = NativeMethods.nb_sound(_core, out var samplesPtr);
@@ -537,6 +708,13 @@ namespace MBoxPanels
         public new void Dispose()
         {
             if (_disposed) return;
+            if (_original != null)
+            {
+                _disposed = true;
+                _original.Dispose();
+                GC.SuppressFinalize(this);
+                return;
+            }
             _disposed = true;
             UnloadRom();
             GC.SuppressFinalize(this);

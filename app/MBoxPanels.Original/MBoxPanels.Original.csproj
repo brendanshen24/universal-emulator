@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Windows-only host for the original Store binaries in ../../original/bin (NesboxPanels.dll, GameController.dll).
+    CsWinRT generates a projection from their .winmd files; Windows.UI.Xaml (UseUwp) hosts the original
+    EmulatorPanel (a SwapChainPanel) in a XAML Island. The app loads this assembly at runtime from its
+    "Original" folder (see OriginalComponents in the app), so the app itself keeps targeting net10.0-desktop.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
+    <UseUwp>true</UseUwp>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <CsWinRTIncludes>MBoxPanels;GameController</CsWinRTIncludes>
+    <CsWinRTWindowsMetadata>10.0.19041.0</CsWinRTWindowsMetadata>
+    <NoWarn>$(NoWarn);CS8305;CsWinRT1028;CsWinRT1030</NoWarn>
+    <OriginalBinDir>$(MSBuildThisFileDirectory)..\..\original\bin\</OriginalBinDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.2.0" />
+    <ProjectReference Include="..\MBoxPanels.Contracts\MBoxPanels.Contracts.csproj" Private="false" />
+    <CsWinRTInputs Include="$(OriginalBinDir)MBoxPanels.winmd;$(OriginalBinDir)GameController.winmd" />
+    <None Include="$(OriginalBinDir)NesboxPanels.dll" Link="%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- The original components link against the UWP C++ runtime (Microsoft.VCLibs.140.00 "_app" DLLs), which
+       Windows ships only as a framework package. Copy it from the installed x64 framework package. -->
+  <Target Name="CopyVCLibsApp" AfterTargets="Build" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+    <Exec Command="powershell -NoProfile -Command &quot;(Get-AppxPackage Microsoft.VCLibs.140.00 | Where-Object Architecture -eq 'X64' | Sort-Object { [version]$_.Version } -Descending | Select-Object -First 1).InstallLocation&quot;"
+          ConsoleToMSBuild="true" StandardOutputImportance="low">
+      <Output TaskParameter="ConsoleOutput" PropertyName="VCLibsDir" />
+    </Exec>
+    <Error Condition="'$(VCLibsDir)' == '' or !Exists('$(VCLibsDir)\vcruntime140_app.dll')"
+           Text="Microsoft.VCLibs.140.00 (x64) is not installed; it ships with Windows/most Store apps (or install it from https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx)." />
+    <ItemGroup>
+      <_VCLibsApp Include="$(VCLibsDir)\*_app.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_VCLibsApp)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+    <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildThisFileDirectory)UseDesktopXInput.ps1&quot; -Source &quot;$(OriginalBinDir)GameController.dll&quot; -Destination &quot;$(OutDir)GameController.dll&quot;" />
+  </Target>
+</Project>

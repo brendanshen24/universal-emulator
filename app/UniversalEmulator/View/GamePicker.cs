@@ -3,7 +3,6 @@ using MBox.Model;
 using MBox.ViewModel;
 using MBoxPanels;
 using Windows.Storage.Pickers;
-using WinRT.Interop;
 
 namespace MBox.View
 {
@@ -11,7 +10,7 @@ namespace MBox.View
     {
         private static readonly string[] RomExtensions =
         {
-            ".nes", ".gen", ".smd", ".smc", ".bin", ".gbc", ".gba", ".gb",
+            ".nes", ".gen", ".smd", ".smc", ".sfc", ".bin", ".gbc", ".gba", ".gb",
         };
 
         private static bool IsRomExtension(string fileName)
@@ -20,24 +19,7 @@ namespace MBox.View
             return RomExtensions.Any(r => string.Equals(r, ext, StringComparison.OrdinalIgnoreCase));
         }
 
-        public static async Task<Rom?> PickAndAddAsync(ViewModelBase? vm = null)
-        {
-            var picker = new FileOpenPicker
-            {
-                SuggestedStartLocation = PickerLocationId.ComputerFolder,
-            };
-            foreach (var ext in RomExtensions)
-                picker.FileTypeFilter.Add(ext);
-
-            InitializePickerWindow(picker);
-            var file = await picker.PickSingleFileAsync();
-            if (file == null)
-                return null;
-
-            return await AddStorageFileAsync(file, vm);
-        }
-
-        public static async Task<IReadOnlyList<Rom>> PickMultipleAndAddAsync(ViewModelBase? vm = null)
+        public static async Task<Rom?> PickAndAddAsync(StartPageViewModel vm)
         {
             var picker = new FileOpenPicker
             {
@@ -47,60 +29,60 @@ namespace MBox.View
                 picker.FileTypeFilter.Add(ext);
             picker.FileTypeFilter.Add(".7z");
 
-            InitializePickerWindow(picker);
+            var file = await picker.PickSingleFileAsync();
+            if (file == null)
+                return null;
+
+            vm.IsLongOperationActive = true;
+            vm.LongOperationProgress = 0;
+            try
+            {
+                if (string.Equals(file.FileType, ".7z", StringComparison.OrdinalIgnoreCase))
+                {
+                    var added = await AddSevenZipAsync(file);
+                    return added.FirstOrDefault();
+                }
+                var rom = await AddStorageFileAsync(file);
+                vm.LongOperationProgress = 100;
+                return rom;
+            }
+            finally
+            {
+                vm.IsLongOperationActive = false;
+            }
+        }
+
+        public static async Task<IReadOnlyList<Rom>> PickMultipleAndAddAsync()
+        {
+            var picker = new FileOpenPicker
+            {
+                SuggestedStartLocation = PickerLocationId.ComputerFolder,
+            };
+            foreach (var ext in RomExtensions)
+                picker.FileTypeFilter.Add(ext);
+            picker.FileTypeFilter.Add(".7z");
+
             var files = await picker.PickMultipleFilesAsync();
             if (files == null || files.Count == 0)
                 return Array.Empty<Rom>();
 
             var added = new List<Rom>();
-            SetLongOperation(vm, isActive: true, progress: 0);
-
-            try
+            foreach (var file in files)
             {
-                for (int i = 0; i < files.Count; i++)
-                {
-                    var file = files[i];
-                    if (string.Equals(file.FileType, ".7z", StringComparison.OrdinalIgnoreCase))
-                    {
-                        var archiveAdded = await AddSevenZipAsync(file);
-                        added.AddRange(archiveAdded);
-                    }
-                    else
-                    {
-                        var rom = await AddStorageFileAsync(file, null);
-                        if (rom != null)
-                            added.Add(rom);
-                    }
-
-                    SetLongOperation(vm, progress: (int)((i + 1) * 100.0 / files.Count));
-                }
-            }
-            finally
-            {
-                SetLongOperation(vm, isActive: false);
+                if (string.Equals(file.FileType, ".7z", StringComparison.OrdinalIgnoreCase))
+                    added.AddRange(await AddSevenZipAsync(file));
+                else
+                    added.Add(await AddStorageFileAsync(file));
             }
 
             return added;
         }
 
-        private static async Task<Rom?> AddStorageFileAsync(Windows.Storage.StorageFile file, ViewModelBase? vm)
+        private static async Task<Rom> AddStorageFileAsync(Windows.Storage.StorageFile file)
         {
-            SetLongOperation(vm, isActive: true, progress: 0);
-
-            try
-            {
-                var buffer = await Windows.Storage.FileIO.ReadBufferAsync(file);
-                byte[] bytes = buffer.ToArray();
-                var library = ((App)Microsoft.UI.Xaml.Application.Current).Library;
-                var rom = await library.AddAsync(file.Name, bytes);
-                await library.SaveAsync();
-                SetLongOperation(vm, progress: 100);
-                return rom;
-            }
-            finally
-            {
-                SetLongOperation(vm, isActive: false);
-            }
+            var buffer = await Windows.Storage.FileIO.ReadBufferAsync(file);
+            var library = ((App)Microsoft.UI.Xaml.Application.Current).Library;
+            return await library.AddAsync(file.Name, buffer.ToArray());
         }
 
         private static async Task<List<Rom>> AddSevenZipAsync(Windows.Storage.StorageFile file)
@@ -124,8 +106,6 @@ namespace MBox.View
                     var rom = await library.AddAsync(entryName, data);
                     result.Add(rom);
                 }
-                if (result.Count > 0)
-                    await library.SaveAsync();
             }
             catch
             {
@@ -135,32 +115,5 @@ namespace MBox.View
             return result;
         }
 
-        private static void SetLongOperation(ViewModelBase? vm, bool? isActive = null, int? progress = null)
-        {
-            if (vm == null)
-                return;
-
-            var type = vm.GetType();
-            if (isActive.HasValue)
-                type.GetProperty("IsLongOperationActive")?.SetValue(vm, isActive.Value);
-            if (progress.HasValue)
-                type.GetProperty("LongOperationProgress")?.SetValue(vm, progress.Value);
-        }
-
-        private static void InitializePickerWindow(FileOpenPicker picker)
-        {
-            if (App.MainWindow != null)
-            {
-                try
-                {
-                    IntPtr hwnd = WindowNative.GetWindowHandle(App.MainWindow);
-                    InitializeWithWindow.Initialize(picker, hwnd);
-                }
-                catch
-                {
-                    // Non-Win32 targets (macOS/Linux Skia) handle FileOpenPicker without HWND.
-                }
-            }
-        }
     }
 }

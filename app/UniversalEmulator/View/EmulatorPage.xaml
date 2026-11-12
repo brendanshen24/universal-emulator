@@ -56,55 +56,6 @@
                 <VisualState x:Name="Filled" />
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <renderer:EmulatorPanel
-            x:Name="EmulatorPanel"
-            Grid.RowSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <renderer:EmulatorPanel.VideoMode>
-                <Binding Path="VideoMode" />
-            </renderer:EmulatorPanel.VideoMode>
-            <renderer:EmulatorPanel.IsSoundEnabled>
-                <Binding Path="IsSoundEnabled" />
-            </renderer:EmulatorPanel.IsSoundEnabled>
-            <renderer:EmulatorPanel.IsBlurEnabled>
-                <Binding Path="IsBlurEnabled" />
-            </renderer:EmulatorPanel.IsBlurEnabled>
-            <renderer:EmulatorPanel.IsEmulationPaused>
-                <Binding Path="IsSetupGamepadMode" />
-            </renderer:EmulatorPanel.IsEmulationPaused>
-        </renderer:EmulatorPanel>
-        <Border Grid.RowSpan="2">
-            <Border.Visibility>
-                <Binding Converter="{StaticResource BoolToVisibilityConverter}" Path="IsGamePadEnabled" />
-            </Border.Visibility>
-            <gamepad:GamePadControl
-                x:Name="GamePad"
-                AccentColor="{StaticResource AccentColorBrush}">
-                <gamepad:GamePadControl.Status>
-                    <Binding Converter="{StaticResource BoolToGamepadEditingStatusConverter}" Path="IsSetupGamepadMode" />
-                </gamepad:GamePadControl.Status>
-                <gamepad:GamePadControl.Mode>
-                    <Binding
-                        Converter="{StaticResource EmulatorToGamePadeModeConverter}"
-                        ElementName="EmulatorPanel"
-                        Path="LoadedEmulator" />
-                </gamepad:GamePadControl.Mode>
-            </gamepad:GamePadControl>
-        </Border>
-        <SplitView
-            x:Name="SettingsView"
-            Grid.RowSpan="2"
-            Canvas.ZIndex="20"
-            DisplayMode="Overlay"
-            IsTabStop="False"
-            OpenPaneLength="340"
-            PaneBackground="#FF00B2F0"
-            PanePlacement="Right">
-            <SplitView.Pane>
-                <flyouts:BoxSettingsFlyout CloseClicked="Settings_CloseClicked" />
-            </SplitView.Pane>
-        </SplitView>
         <CommandBar
             x:Name="PageAppBar"
             Grid.RowSpan="2"
@@ -262,5 +213,54 @@
                 </AppBarButton>
             </CommandBar.PrimaryCommands>
         </CommandBar>
+        <renderer:EmulatorPanel
+            x:Name="EmulatorPanel"
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <renderer:EmulatorPanel.VideoMode>
+                <Binding Path="VideoMode" />
+            </renderer:EmulatorPanel.VideoMode>
+            <renderer:EmulatorPanel.IsSoundEnabled>
+                <Binding Path="IsSoundEnabled" />
+            </renderer:EmulatorPanel.IsSoundEnabled>
+            <renderer:EmulatorPanel.IsBlurEnabled>
+                <Binding Path="IsBlurEnabled" />
+            </renderer:EmulatorPanel.IsBlurEnabled>
+            <renderer:EmulatorPanel.IsEmulationPaused>
+                <Binding Path="IsSetupGamepadMode" />
+            </renderer:EmulatorPanel.IsEmulationPaused>
+        </renderer:EmulatorPanel>
+        <Border Grid.RowSpan="2">
+            <Border.Visibility>
+                <Binding Converter="{StaticResource BoolToVisibilityConverter}" Path="IsGamePadEnabled" />
+            </Border.Visibility>
+            <gamepad:GamePadControl
+                x:Name="GamePad"
+                AccentColor="{StaticResource AccentColorBrush}">
+                <gamepad:GamePadControl.Status>
+                    <Binding Converter="{StaticResource BoolToGamepadEditingStatusConverter}" Path="IsSetupGamepadMode" />
+                </gamepad:GamePadControl.Status>
+                <gamepad:GamePadControl.Mode>
+                    <Binding
+                        Converter="{StaticResource EmulatorToGamePadeModeConverter}"
+                        ElementName="EmulatorPanel"
+                        Path="LoadedEmulator" />
+                </gamepad:GamePadControl.Mode>
+            </gamepad:GamePadControl>
+        </Border>
+        <SplitView
+            x:Name="SettingsView"
+            Grid.RowSpan="2"
+            Canvas.ZIndex="20"
+            DisplayMode="Overlay"
+            IsTabStop="False"
+            OpenPaneLength="340"
+            PaneBackground="#FF00B2F0"
+            PanePlacement="Right">
+            <SplitView.Pane>
+                <flyouts:BoxSettingsFlyout CloseClicked="Settings_CloseClicked" />
+            </SplitView.Pane>
+        </SplitView>
     </Grid>
 </view:CommonPage>

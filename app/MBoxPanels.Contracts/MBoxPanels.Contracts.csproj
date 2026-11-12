@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Plain interfaces shared by the app (net10.0-desktop) and MBoxPanels.Original (Windows-only host of the
+       original Store binaries), so the app never has to reference Windows SDK projections directly. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+</Project>

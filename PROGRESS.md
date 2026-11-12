@@ -10,12 +10,22 @@ Source of truth: the user's installed package dump `~/Downloads/50446Nesbox.1673
 - `native/`: libnesbox core (same engine the original's NesboxPanels.dll embedded) + 7z + sound (miniaudio) + pads
   behind a C API (`mboxpanels.cpp`). `make` -> `libmboxpanels.dylib` (arm64), `make TARGET=windows ZIG=...` -> `mboxpanels.dll`.
   `make test` passes on both (Windows under wine). Core fixes: conffile.h const comparators, FCEUFILE::mode init.
-- `app/`: Uno Platform 7 desktop project (`net10.0-desktop`, Skia; one build for Windows exe + macOS).
-  Written: App.xaml(.cs), Strings (resw from the original), Assets (original), MSACL helpers + triggers,
-  HamburgerMenu (WCT 1.3 port), Model (Rom/SavedRom/HamburgerItem, Library with identical library.json format),
-  StartPage.xaml(.cs) + StartPageViewModel. **Not built yet**: StartPage references EmulatorPage and View.GamePicker,
-  which don't exist yet. `app/pending/` holds the ported XAML still needing code-behind (Emulator/Roms/Saves pages,
-  AboutFlyout, GamePadControl).
+- `app/` contains the Uno desktop app, including the library, emulator, settings, and virtual gamepad pages.
+  The Windows installer publishes a self-contained x64 executable and its original emulator dependencies.
+
+## Original binaries on Windows
+- `original/bin/`: NesboxPanels.dll, GameController.dll + .winmd, extracted unchanged from the Store package.
+- `app/MBoxPanels.Original` (net10.0-windows, UseUwp, CsWinRT projection of those .winmd) hosts them in a plain desktop
+  process: activation via DllGetActivationFactory (`ActivationFactory.ActivationHandler`), the original EmulatorPanel
+  (a SwapChainPanel) in a XAML Island inside a host HWND that Uno embeds with `Win32NativeWindow`. Needs the exe
+  manifest's `maxversiontested` and the UWP C++ runtime (`*_app.dll`, copied from the installed Microsoft.VCLibs.140.00).
+- Built into `Original/` next to the exe and loaded at runtime in its own AssemblyLoadContext (`MBoxPanels/Originals.cs`).
+  EmulatorPanel and SevenZipWrapper use the original DLL when available. macOS and `UE_REBUILT_CORE=1` use the rebuilt core.
+  The Windows build copies the original GameController.dll with its XInput import changed to desktop XInput 1.4.
+  The untouched controller DLL ran games but crashed in Windows.Gaming.Input.dll on shutdown in the unpackaged app.
+  Explicit WinRT cleanup on the main thread and around controller polling did not prevent that crash.
+- Not reusable: Nesbox.dll (.NET Native machine code, no IL), clrcompression.dll (.NET Native runtime piece);
+  Microsoft.Graphics.Canvas.dll (Win2D) loads but was only used by Nesbox.dll's code.
 
 ## Decoded behaviour (Nesbox.dll addresses; disassembly in scratchpad, regenerate with `xcrun llvm-objdump -d`)
 - Hamburger items (0x180861d80): Open U+E109 / My Games U+E7FC (selected) / My Saves U+E159 / Settings U+E115.
@@ -38,11 +48,10 @@ Source of truth: the user's installed package dump `~/Downloads/50446Nesbox.1673
   SaveState, LoadState, AddController, StateChanged; props IsSoundEnabled/IsBlurEnabled/IsEmulationPaused/VideoMode/LoadedEmulator.
   Original renders with D3D11/D2D, XAudio2, WIC.
 
-## Next
-1. EmulatorPanel (C# Uno control over the native lib), EmulatorPage + EmulatorPageViewModel, GamePicker (Open flow 0x1807f47e0 /
-   0x1807f68f0 incl. .7z), then build and run.
-2. Save/Load/thumbnail state machines (0x1807ec550, 0x1807edef0, 0x1807eb700, 0x1807eeac0), BoxSettingsFlyout key binding UI,
-   GamePadControl, Roms/Saves pages, About, rate dialog.
-3. Optional precision: user's old PC `C:\Program Files\WindowsApps\Microsoft.NET.Native.Framework.1.3_*_x64__8wekyb3d8bbwe\SharedLibrary.dll`
-   (+ Microsoft symbol server PDB) would name every framework call.
-4. Compare against screenshots from the old PC; publish win-x64 exe and macOS app.
+## Windows verification
+
+A Debug publish accepts `UE_SMOKE_LOG` with an absolute output path. It opens the built-in NES and SNES games and
+Top Gear if present in the library. It checks ROM loading, save-state and screenshot creation, command-bar input modes,
+and navigation back to the library. It loads the generated save state in memory. Run with `UE_REBUILT_CORE=1` to check
+the fallback renderer. The smoke test uses panel input methods. Physical controller input, sound output, and a visual
+comparison with the original UWP still need interactive checks.

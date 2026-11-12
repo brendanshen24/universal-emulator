@@ -106,14 +106,25 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="mstoolkit:HamburgerMenu">
                             <Grid>
-                                <SplitView
-                                    x:Name="MainSplitView"
-                                    CompactPaneLength="{TemplateBinding CompactPaneLength}"
-                                    DisplayMode="{TemplateBinding DisplayMode}"
-                                    IsPaneOpen="{TemplateBinding IsPaneOpen}"
-                                    OpenPaneLength="{TemplateBinding OpenPaneLength}"
-                                    PaneBackground="{TemplateBinding PaneBackground}"
-                                    PanePlacement="{TemplateBinding PanePlacement}">
+                                <SplitView x:Name="MainSplitView">
+                                    <SplitView.OpenPaneLength>
+                                        <TemplateBinding Path="OpenPaneLength" />
+                                    </SplitView.OpenPaneLength>
+                                    <SplitView.PanePlacement>
+                                        <TemplateBinding Path="PanePlacement" />
+                                    </SplitView.PanePlacement>
+                                    <SplitView.DisplayMode>
+                                        <TemplateBinding Path="DisplayMode" />
+                                    </SplitView.DisplayMode>
+                                    <SplitView.CompactPaneLength>
+                                        <TemplateBinding Path="CompactPaneLength" />
+                                    </SplitView.CompactPaneLength>
+                                    <SplitView.PaneBackground>
+                                        <TemplateBinding Path="PaneBackground" />
+                                    </SplitView.PaneBackground>
+                                    <SplitView.IsPaneOpen>
+                                        <TemplateBinding Path="IsPaneOpen" />
+                                    </SplitView.IsPaneOpen>
                                     <SplitView.Pane>
                                         <Grid x:Name="PaneGrid">
                                             <Grid.RowDefinitions>
@@ -121,16 +132,26 @@
                                                 <RowDefinition />
                                                 <RowDefinition Height="Auto" />
                                             </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0" Height="{TemplateBinding HamburgerHeight}" />
+                                            <Grid Grid.Row="0">
+                                                <Grid.Height>
+                                                    <TemplateBinding Path="HamburgerHeight" />
+                                                </Grid.Height>
+                                            </Grid>
                                             <ListView
                                                 x:Name="ButtonsListView"
                                                 Grid.Row="1"
-                                                Width="{TemplateBinding OpenPaneLength}"
                                                 IsItemClickEnabled="True"
-                                                ItemTemplate="{TemplateBinding ItemTemplate}"
-                                                ItemsSource="{TemplateBinding ItemsSource}"
                                                 SelectionMode="None"
                                                 TabNavigation="Once">
+                                                <ListView.ItemsSource>
+                                                    <TemplateBinding Path="ItemsSource" />
+                                                </ListView.ItemsSource>
+                                                <ListView.ItemTemplate>
+                                                    <TemplateBinding Path="ItemTemplate" />
+                                                </ListView.ItemTemplate>
+                                                <ListView.Width>
+                                                    <TemplateBinding Path="OpenPaneLength" />
+                                                </ListView.Width>
                                                 <ListView.ItemContainerStyle>
                                                     <Style TargetType="ListViewItem">
                                                         <Setter Property="Padding" Value="0,0,0,0" />
@@ -138,7 +159,10 @@
                                                     </Style>
                                                 </ListView.ItemContainerStyle>
                                             </ListView>
-                                            <Grid Grid.Row="2" Visibility="{TemplateBinding OptionsVisibility}">
+                                            <Grid Grid.Row="2">
+                                                <Grid.Visibility>
+                                                    <TemplateBinding Path="OptionsVisibility" />
+                                                </Grid.Visibility>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition />
@@ -146,11 +170,17 @@
                                                 <ListView
                                                     x:Name="OptionsListView"
                                                     Grid.Row="1"
-                                                    Width="{TemplateBinding OpenPaneLength}"
                                                     VerticalAlignment="Bottom"
-                                                    IsItemClickEnabled="True"
-                                                    ItemTemplate="{TemplateBinding OptionsItemTemplate}"
-                                                    ItemsSource="{TemplateBinding OptionsItemsSource}">
+                                                    IsItemClickEnabled="True">
+                                                    <ListView.ItemsSource>
+                                                        <TemplateBinding Path="OptionsItemsSource" />
+                                                    </ListView.ItemsSource>
+                                                    <ListView.ItemTemplate>
+                                                        <TemplateBinding Path="OptionsItemTemplate" />
+                                                    </ListView.ItemTemplate>
+                                                    <ListView.Width>
+                                                        <TemplateBinding Path="OpenPaneLength" />
+                                                    </ListView.Width>
                                                     <ListView.ItemContainerStyle>
                                                         <Style TargetType="ListViewItem">
                                                             <Setter Property="Padding" Value="0,0,0,0" />
@@ -164,17 +194,25 @@
                                 </SplitView>
                                 <Button
                                     x:Name="HamburgerButton"
-                                    Width="{TemplateBinding HamburgerWidth}"
-                                    Height="{TemplateBinding HamburgerHeight}"
                                     Padding="0,0,0,0"
                                     VerticalAlignment="Top"
                                     Background="#00FFFFFF"
                                     BorderThickness="0,0,0,0"
                                     IsTabStop="True">
-                                    <ContentControl
-                                        Margin="{TemplateBinding HamburgerMargin}"
-                                        ContentTemplate="{TemplateBinding HamburgerMenuTemplate}"
-                                        Foreground="{TemplateBinding Foreground}" />
+                                    <Button.Width>
+                                        <TemplateBinding Path="HamburgerWidth" />
+                                    </Button.Width>
+                                    <Button.Height>
+                                        <TemplateBinding Path="HamburgerHeight" />
+                                    </Button.Height>
+                                    <ContentControl Foreground="{TemplateBinding Foreground}">
+                                        <ContentControl.ContentTemplate>
+                                            <TemplateBinding Path="HamburgerMenuTemplate" />
+                                        </ContentControl.ContentTemplate>
+                                        <ContentControl.Margin>
+                                            <TemplateBinding Path="HamburgerMargin" />
+                                        </ContentControl.Margin>
+                                    </ContentControl>
                                 </Button>
                             </Grid>
                         </ControlTemplate>

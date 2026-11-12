@@ -169,11 +169,25 @@ namespace MBoxPanels
     public sealed class SevenZipWrapper : IDisposable
     {
         private IntPtr _handle;
+        private readonly MBoxPanels.Contracts.IOriginalSevenZip? _original; // NesboxPanels.dll's SevenZipWrapper
 
         public SevenZipWrapper(byte[] data)
         {
             if (data == null || data.Length == 0)
                 throw new ArgumentException("Archive buffer is empty.", nameof(data));
+
+            if (Originals.Instance is { } originals)
+            {
+                try
+                {
+                    _original = originals.OpenSevenZip(data);
+                    return;
+                }
+                catch (Exception e)
+                {
+                    throw new InvalidDataException("Failed to open 7z archive.", e);
+                }
+            }
 
             _handle = NativeMethods.nb_7z_open(data, data.Length);
             if (_handle == IntPtr.Zero)
@@ -182,6 +196,9 @@ namespace MBoxPanels
 
         public IReadOnlyList<string> list()
         {
+            if (_original != null)
+                return _original.List();
+
             if (_handle == IntPtr.Zero)
                 return Array.Empty<string>();
 
@@ -196,6 +213,9 @@ namespace MBoxPanels
 
         public byte[] extract(string name)
         {
+            if (_original != null)
+                return _original.Extract(name);
+
             if (_handle == IntPtr.Zero || string.IsNullOrEmpty(name))
                 return Array.Empty<byte>();
 
@@ -276,15 +296,46 @@ namespace GameController
 
     public sealed class Controller
     {
+        private readonly MBoxPanels.Contracts.IOriginalGameController? _original;
+
+#if DEBUG
+        internal bool UsesOriginal => _original != null;
+#endif
+
         public uint Id { get; }
 
         public Controller(uint id = 0)
         {
             Id = id;
+            try
+            {
+                _original = MBoxPanels.Originals.Instance?.OpenGameController(id);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine($"Original GameController unavailable, using rebuilt pad input: {e}");
+            }
         }
 
         public State GetState()
         {
+            if (_original != null)
+            {
+                var state = _original.GetState();
+                return new State
+                {
+                    controllerId = state.controllerId, packetNumber = state.packetNumber, buttons = state.buttons, connected = state.connected,
+                    a = state.a, b = state.b, x = state.x, y = state.y,
+                    dpad_up = state.dpad_up, dpad_down = state.dpad_down, dpad_left = state.dpad_left, dpad_right = state.dpad_right,
+                    left_thumb = state.left_thumb, right_thumb = state.right_thumb,
+                    left_shoulder = state.left_shoulder, right_shoulder = state.right_shoulder,
+                    start = state.start, back = state.back,
+                    LeftTrigger = state.LeftTrigger, RightTrigger = state.RightTrigger,
+                    LeftThumbX = state.LeftThumbX, LeftThumbY = state.LeftThumbY,
+                    RightThumbX = state.RightThumbX, RightThumbY = state.RightThumbY,
+                };
+            }
+
             int connected = MBoxPanels.NativeMethods.nb_pad_state((int)Id, out var native);
             if (connected == 0)
                 return default;

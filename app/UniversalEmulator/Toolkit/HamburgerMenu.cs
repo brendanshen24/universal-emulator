@@ -15,6 +15,10 @@ namespace Microsoft.Toolkit.Uwp.UI.Controls
         private ListViewBase? _buttonsListView;
         private ListViewBase? _optionsListView;
 
+#if DEBUG
+        internal int TemplateItemCount => _buttonsListView?.Items.Count ?? 0;
+#endif
+
         public HamburgerMenu()
         {
             DefaultStyleKey = typeof(HamburgerMenu);

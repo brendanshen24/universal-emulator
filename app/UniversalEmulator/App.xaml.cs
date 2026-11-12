@@ -56,6 +56,10 @@ public partial class App : Application
         }
         if (rootFrame.Content == null) rootFrame.Navigate(typeof(StartPage), args.Arguments);
         MainWindow.Activate();
+#if DEBUG
+        if (Environment.GetEnvironmentVariable("UE_SMOKE_LOG") is { } smokeLog)
+            await EmulatorPage.RunSmokeTestAsync(rootFrame, smokeLog);
+#endif
     }
 
     void OnNavigationFailed(object sender, NavigationFailedEventArgs e) =>
