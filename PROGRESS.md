@@ -55,3 +55,26 @@ Top Gear if present in the library. It checks ROM loading, save-state and screen
 and navigation back to the library. It loads the generated save state in memory. Run with `UE_REBUILT_CORE=1` to check
 the fallback renderer. The smoke test uses panel input methods. Physical controller input, sound output, and a visual
 comparison with the original UWP still need interactive checks.
+
+## Original UWP launch on Windows
+
+The 1.1.3.0 x64 app installed, but its startup failed before the window opened. A package debugger
+captured `Nesbox.exe` exiting with `0xC0000135` (DLL not found). The loader trace showed
+`mrt100_app.dll` loading, with no load of `SharedLibrary.dll`, even though Windows had registered
+the required .NET Native Framework 1.3 package.
+
+The framework copy of `SharedLibrary.dll` was in
+`C:\Program Files\WindowsApps\Microsoft.NET.Native.Framework.1.3_1.3.24211.0_x64__8wekyb3d8bbwe`.
+Its permissions lacked the AppContainer read and execute grants present on the runtime DLL that
+loaded successfully. This suggests an access issue. The trace captured the loader failure without
+an explicit access-denied event.
+
+Copying that Microsoft DLL beside `Nesbox.exe` let the app launch. The working copy uses the original
+app binaries and display name, `Universal Emulator`. It is registered from
+`%LOCALAPPDATA%\UniversalEmulator-UWP-Repaired` under the local package identity
+`Nesbox.UniversalEmulator.Repair`, which has its own app data folder.
+
+The loose extraction left URI escapes in the filenames of six bundled SNES ROMs and their
+thumbnails. Their filenames now match the paths in the original library, and all nine bundled
+ROMs match the original library's MD5 checksums. The imported Top Gear dump has a valid SNES
+header. Its file and library path now use `.smc` so the original engine selects the SNES core.
