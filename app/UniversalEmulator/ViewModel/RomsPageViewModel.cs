@@ -35,7 +35,7 @@ namespace MBox.ViewModel
 
         private async Task AddAsync()
         {
-            await GamePicker.PickMultipleAndAddAsync(this);
+            await GamePicker.PickMultipleAndAddAsync();
             Refresh();
         }
 
